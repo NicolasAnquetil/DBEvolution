@@ -15,14 +15,14 @@ DBEOperatorTest class >> isAbtract [
 ]
 
 { #category : #accessing }
-DBEOperatorTest >> operatorClass [
+DBEOperatorTest >> operatorInstance [
 	"Returns the class of the operator to be tested."
 	^ self subclassResponsibility
 ]
 
 { #category : #running }
 DBEOperatorTest >> setUp [
-	operator := self operatorClass table: 'person' column: 'name' type: 'text'.
+	operator := self operatorInstance.
 	operator
 		model: DBEDatabase new;
 		database: DBEDatabase new.

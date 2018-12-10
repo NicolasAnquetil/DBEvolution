@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #accessing }
-DBEAddColumnTest >> operatorClass [
-	^ DBEAddColumn
+DBEAddColumnTest >> operatorInstance [
+	^ DBEAddColumn table: 'person' column: 'name' type: 'text'
 ]
 
 { #category : #tests }

@@ -16,6 +16,12 @@ DBEModel >> column: columnName existsInTable: tableName [
 ]
 
 { #category : #predicates }
+DBEModel >> hasTableNamed: tableName [
+	"Returns true if #tableName is an existing table in the database."
+	^ self subclassResponsibility
+]
+
+{ #category : #predicates }
 DBEModel >> hasTypeNamed: aTypeName [
 	"Returns true if #aTypeName is an existing type in the DB."
 	^ self subclassResponsibility
