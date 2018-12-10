@@ -60,3 +60,14 @@ DBEAddColumnTest >> testCanBeAppliedOnModel4 [
 DBEAddColumnTest >> testGenerateQueries [
 	self assert: operator generateQueries equals: 'ALTER TABLE "person" ADD COLUMN "name" "text";'
 ]
+
+{ #category : #tests }
+DBEAddColumnTest >> testTemplateArgumentsDictionary [
+	self
+		assert: operator templateArgumentsDictionary
+		equals: { 
+			#columnName -> 'name'.
+			#columnType -> 'text'.
+			#targetTable -> 'person'
+		} asDictionary
+]
