@@ -16,5 +16,6 @@ BaselineOfDBEvolution >> baseline: spec [
 			"Packages"
 			spec
 				package: 'DBEvolution';
-				package: 'DBEvolution-Tests' with: [ spec requires: #('DBEvolution' 'Mocketry') ] ]
+				package: 'DBEvolution-Operators' with: [ spec requires: #('DBEvolution') ];
+				package: 'DBEvolution-Tests' with: [ spec requires: #('DBEvolution' 'DBEvolution-Operators' 'Mocketry') ] ]
 ]

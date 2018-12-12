@@ -6,7 +6,16 @@ Class {
 
 { #category : #accessing }
 DBERemoveColumnTest >> operatorInstance [
-	^ DBERemoveColumn table: 'person' column: 'name'
+	| tableEntityMock columnEntityMock |
+	tableEntityMock := Mock new.
+	tableEntityMock stub
+		name willReturn: 'person'.
+	columnEntityMock := Mock new.
+	columnEntityMock stub
+		name willReturn: 'name'.
+	columnEntityMock stub
+		table willReturn: tableEntityMock.
+	^ DBERemoveColumn column: columnEntityMock
 ]
 
 { #category : #tests }
@@ -16,34 +25,7 @@ DBERemoveColumnTest >> testCanBeAppliedOnData [
 
 { #category : #tests }
 DBERemoveColumnTest >> testCanBeAppliedOnModel [
-	(modelMock hasTableNamed: 'person') willReturn: true.
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: true.
-	
 	self assert: operator canBeAppliedOnModel
-]
-
-{ #category : #tests }
-DBERemoveColumnTest >> testCanBeAppliedOnModel2 [
-	(modelMock hasTableNamed: 'person') willReturn: false.
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: true.
-	
-	self deny: operator canBeAppliedOnModel
-]
-
-{ #category : #tests }
-DBERemoveColumnTest >> testCanBeAppliedOnModel3 [
-	(modelMock hasTableNamed: 'person') willReturn: true.
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: false.
-	
-	self deny: operator canBeAppliedOnModel
-]
-
-{ #category : #tests }
-DBERemoveColumnTest >> testCanBeAppliedOnModel4 [
-	(modelMock hasTableNamed: 'person') willReturn: false.
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: false.
-	
-	self deny: operator canBeAppliedOnModel
 ]
 
 { #category : #tests }
@@ -57,6 +39,6 @@ DBERemoveColumnTest >> testTemplateArgumentsDictionary [
 		assert: operator templateArgumentsDictionary
 		equals: { 
 			#columnName -> 'name'.
-			#targetTable -> 'person'
+			#tableName -> 'person'
 		} asDictionary
 ]

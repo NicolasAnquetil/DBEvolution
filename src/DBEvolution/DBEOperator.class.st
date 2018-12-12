@@ -8,7 +8,7 @@ Class {
 	#category : #'DBEvolution-Core'
 }
 
-{ #category : #accessing }
+{ #category : #'public - application' }
 DBEOperator >> apply [
 	self canBeAppliedOnModel
 		ifFalse: [ DBEInvalidModel model: self model ].
@@ -39,6 +39,12 @@ DBEOperator >> database [
 { #category : #accessing }
 DBEOperator >> database: anObject [
 	database := anObject
+]
+
+{ #category : #private }
+DBEOperator >> impactAndRecommandations [
+	"Returns an instance of DBEImpactAndRecommandations which models the impact of the operator and the recommandations allowing to try to reconciliate the database with the change provided by the operator."
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }

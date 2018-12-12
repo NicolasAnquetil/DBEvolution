@@ -6,7 +6,15 @@ Class {
 
 { #category : #accessing }
 DBEAddColumnTest >> operatorInstance [
-	^ DBEAddColumn table: 'person' column: 'name' type: 'text'
+	| tableEntityMock typeEntityMock |
+	tableEntityMock := Mock new.
+	tableEntityMock stub
+		name willReturn: 'person'.
+	typeEntityMock := Mock new.
+	typeEntityMock stub
+		name willReturn: 'text'.
+		
+	^ DBEAddColumn table: tableEntityMock column: 'name' type: typeEntityMock
 ]
 
 { #category : #tests }
@@ -16,42 +24,16 @@ DBEAddColumnTest >> testCanBeAppliedOnData [
 
 { #category : #tests }
 DBEAddColumnTest >> testCanBeAppliedOnModel [
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: false.
-	(modelMock hasTypeNamed: 'text') willReturn: true.
+	(operator targetTable stub
+		hasColumnNamed: 'name') willReturn: false.
 	
 	self assert: operator canBeAppliedOnModel
 ]
 
 { #category : #tests }
 DBEAddColumnTest >> testCanBeAppliedOnModel2 [
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: true.
-	(modelMock hasTypeNamed: 'text') willReturn: true.
-		
-	self deny: operator canBeAppliedOnModel.
-	
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: true.
-	(modelMock hasTypeNamed: 'text') willReturn: false.
-		
-	self deny: operator canBeAppliedOnModel.
-	
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: false.
-	(modelMock hasTypeNamed: 'text') willReturn: false.
-		
-	self deny: operator canBeAppliedOnModel.
-]
-
-{ #category : #tests }
-DBEAddColumnTest >> testCanBeAppliedOnModel3 [
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: true.
-	(modelMock hasTypeNamed: 'text') willReturn: false.
-		
-	self deny: operator canBeAppliedOnModel
-]
-
-{ #category : #tests }
-DBEAddColumnTest >> testCanBeAppliedOnModel4 [
-	(modelMock table: 'person' hasColumnNamed: 'name') willReturn: false.
-	(modelMock hasTypeNamed: 'text') willReturn: false.
+	(operator targetTable stub
+		hasColumnNamed: 'name') willReturn: true.
 		
 	self deny: operator canBeAppliedOnModel.
 ]
@@ -67,7 +49,7 @@ DBEAddColumnTest >> testTemplateArgumentsDictionary [
 		assert: operator templateArgumentsDictionary
 		equals: { 
 			#columnName -> 'name'.
-			#columnType -> 'text'.
-			#targetTable -> 'person'
+			#columnTypeName -> 'text'.
+			#targetTableName -> 'person'
 		} asDictionary
 ]

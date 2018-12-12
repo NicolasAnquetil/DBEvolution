@@ -9,7 +9,7 @@ Class {
 		'columnName',
 		'columnType'
 	],
-	#category : #'DBEvolution-Operators'
+	#category : #'DBEvolution-Operators-Column'
 }
 
 { #category : #'instance creation' }
@@ -33,8 +33,7 @@ DBEAddColumn >> canBeAppliedOnModel [
 		- when the table already has a column with the same name; or
 		- when the type of the new column does not exist in the database
 	"
-	^ (self model table: self targetTable hasColumnNamed: self columnName) not
-		and: [ self model hasTypeNamed: self columnType ]
+	^ (self targetTable hasColumnNamed: self columnName) not
 ]
 
 { #category : #accessing }
@@ -57,9 +56,15 @@ DBEAddColumn >> columnType: anObject [
 	columnType := anObject
 ]
 
+{ #category : #private }
+DBEAddColumn >> impactAndRecommandations [
+	"There is no impact here. So we define a filter that accept any entity of the model and provide no recommandation."
+	^ DBEImpactAndRecommandations impacts: {}
+]
+
 { #category : #accessing }
 DBEAddColumn >> queriesTemplate [
-	^ 'ALTER TABLE "{targetTable}" ADD COLUMN "{columnName}" "{columnType}";'
+	^ 'ALTER TABLE "{targetTableName}" ADD COLUMN "{columnName}" "{columnTypeName}";'
 ]
 
 { #category : #accessing }
@@ -76,7 +81,7 @@ DBEAddColumn >> targetTable: anObject [
 DBEAddColumn >> templateArgumentsDictionary [
 	^ { 
 		#columnName -> self columnName.
-		#columnType -> self columnType.
-		#targetTable -> self targetTable
+		#columnTypeName -> self columnType name.
+		#targetTableName -> self targetTable name
 	} asDictionary
 ]
