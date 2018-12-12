@@ -1,5 +1,5 @@
 Class {
 	#name : #DBERemoveForeignKeyConstraint,
-	#superclass : #DBEAtomicOperator,
+	#superclass : #DBERemoveConstraint,
 	#category : #'DBEvolution-Operators-Constraints'
 }

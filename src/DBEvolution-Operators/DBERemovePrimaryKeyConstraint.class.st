@@ -1,5 +1,5 @@
 Class {
 	#name : #DBERemovePrimaryKeyConstraint,
-	#superclass : #DBEAtomicOperator,
+	#superclass : #DBERemoveConstraint,
 	#category : #'DBEvolution-Operators-Constraints'
 }
