@@ -1,5 +1,5 @@
 Class {
 	#name : #DBEAddCheckConstraint,
-	#superclass : #DBEAtomicOperator,
+	#superclass : #DBEAddConstraint,
 	#category : #'DBEvolution-Operators-Constraints'
 }

@@ -1,11 +1,11 @@
 Class {
-	#name : #DBERemoveConstraintTest,
+	#name : #DBERemoveNamedConstraintTest,
 	#superclass : #DBEOperatorTest,
 	#category : #'DBEvolution-Tests'
 }
 
 { #category : #accessing }
-DBERemoveConstraintTest >> operatorInstance [
+DBERemoveNamedConstraintTest >> operatorInstance [
 	| tableEntityMock constraintEntityMock |
 	tableEntityMock := Mock new.
 	tableEntityMock stub
@@ -15,26 +15,26 @@ DBERemoveConstraintTest >> operatorInstance [
 		name willReturn: 'my_constraint'.
 	constraintEntityMock stub
 		table willReturn: tableEntityMock.
-	^ DBERemoveConstraint constraint: constraintEntityMock
+	^ DBERemoveNamedConstraint constraint: constraintEntityMock
 ]
 
 { #category : #tests }
-DBERemoveConstraintTest >> testCanBeAppliedOnData [
+DBERemoveNamedConstraintTest >> testCanBeAppliedOnData [
 	self assert: operator canBeAppliedOnData
 ]
 
 { #category : #tests }
-DBERemoveConstraintTest >> testCanBeAppliedOnModel [
+DBERemoveNamedConstraintTest >> testCanBeAppliedOnModel [
 	self assert: operator canBeAppliedOnModel
 ]
 
 { #category : #tests }
-DBERemoveConstraintTest >> testGenerateQueries [
+DBERemoveNamedConstraintTest >> testGenerateQueries [
 	self assert: operator generateQueries equals: 'ALTER TABLE "person" DROP CONSTRAINT "my_constraint";'
 ]
 
 { #category : #tests }
-DBERemoveConstraintTest >> testTemplateArgumentsDictionary [
+DBERemoveNamedConstraintTest >> testTemplateArgumentsDictionary [
 	self
 		assert: operator templateArgumentsDictionary
 		equals: { 
