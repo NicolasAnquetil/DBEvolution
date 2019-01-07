@@ -28,12 +28,16 @@ DBERemoveColumn >> canBeAppliedOnModel [
 
 { #category : #private }
 DBERemoveColumn >> impactAndRecommandations [
-	self flag: #TODO.
 	^ DBEImpactAndRecommandations impacts: { 
-		[ :entity :m :db | m isForeignKey: entity ] asDBEImpactFilter -> { DBEHumanIntervention }.
-		[ :entity :m :db | (m isConstraint: entity) and: [ (m isForeignKey: entity) not ] ] asDBEImpactFilter -> { DBEHumanIntervention }.
-		[ :entity :m :db | (m isClauseAbleToReferenceColumn: entity) and: [ (m isWhereClause: entity) not and: [ (m isJoinClause: entity) not ] ] ] asDBEImpactFilter -> { DBEHumanIntervention }.
-		[ :entity :m :db | (m isWhereClause: entity) or: [ m isJoinClause: entity ] ] asDBEImpactFilter -> { DBEHumanIntervention } }
+		[ :entity :m :db | entity isForeignKey ] asDBEImpactFilter -> { 
+			[ :fkConstraint | DBERemoveForeignKeyConstraint constraint: fkConstraint ] }.
+		[ :entity :m :db | entity isConstraint and: [ entity isForeignKey not ] ] asDBEImpactFilter -> { 
+			[ :constraint | DBEHumanIntervention entity: constraint ] }.
+		[ :entity :m :db | entity isClauseAbleToReferenceColumn and: [ entity isWhereClause not and: [ entity isJoinClause not ] ] ] asDBEImpactFilter -> { 
+			[ :clause | DBEHumanIntervention entity: clause ] }.
+		[ :entity :m :db | entity isWhereClause or: [ entity isJoinClause ] ] asDBEImpactFilter -> { 
+			[ :whereOrJoinClause | DBEHumanIntervention entity: whereOrJoinClause ] }
+	}
 ]
 
 { #category : #accessing }
