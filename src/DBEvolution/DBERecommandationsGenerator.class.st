@@ -38,7 +38,9 @@ DBERecommandationsGenerator >> generateRecommandationsFor: maximalImpactSet data
 			self filters
 				detect: [ :filter | filter matchesEntity: entity inDatabase: aDBEDatabase ]
 				ifFound: [ :foundFilter | 
-					col add: (DBERecommandation entity: entity operators: (foundFilter recommandationsFor: entity)) ].
+					col add: (DBERecommandation entity: entity operators: (foundFilter recommandationsFor: entity)) ]
+				ifNone: [ 
+					DBENoFilterMatchesEntityError signalEntity: entity ].
 			col ]
 ]
 
