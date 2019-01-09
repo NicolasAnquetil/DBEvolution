@@ -26,8 +26,13 @@ DBERemoveColumn >> canBeAppliedOnModel [
 	^ true
 ]
 
+{ #category : #accessing }
+DBERemoveColumn >> queriesTemplate [
+	^ 'ALTER TABLE "{tableName}" DROP COLUMN "{columnName}";'
+]
+
 { #category : #private }
-DBERemoveColumn >> impactAndRecommandations [
+DBERemoveColumn >> recommandationsGenerator [
 	^ DBERecommandationsGenerator filters: { 
 		[ :entity :db | entity isForeignKey ] asDBEImpactFilter -> { 
 			[ :fkConstraint | DBERemoveForeignKeyConstraint constraint: fkConstraint ] }.
@@ -38,11 +43,6 @@ DBERemoveColumn >> impactAndRecommandations [
 		[ :entity :db | entity isWhereClause or: [ entity isJoinClause ] ] asDBEImpactFilter -> { 
 			[ :whereOrJoinClause | DBEHumanIntervention entity: whereOrJoinClause ] }
 	}
-]
-
-{ #category : #accessing }
-DBERemoveColumn >> queriesTemplate [
-	^ 'ALTER TABLE "{tableName}" DROP COLUMN "{columnName}";'
 ]
 
 { #category : #accessing }

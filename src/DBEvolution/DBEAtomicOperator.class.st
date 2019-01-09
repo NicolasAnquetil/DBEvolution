@@ -15,10 +15,32 @@ DBEAtomicOperator >> generateQueries [
 	^ self queriesTemplate format: self templateArgumentsDictionary
 ]
 
+{ #category : #testing }
+DBEAtomicOperator >> isResolved [
+	"Answers true if the operators is ready to be applied.
+	 How it is computed depends on the operator.
+	 For composite operators it will be true if #isResolved is true for all children.
+	 For atomic operators it will be true if a recommandation has been chosed by the developper for each impacted entity."
+	self flag: #TODO. "To be done."
+	^ false
+]
+
+{ #category : #accessing }
+DBEAtomicOperator >> maximalImpactSet [
+	"Returns the maximal impact set of the operator."
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 DBEAtomicOperator >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+DBEAtomicOperator >> recommandations [
+	^ self recommandationsGenerator
+		generateRecommandationsFor: self maximalImpactSet database: self database
 ]
 
 { #category : #accessing }

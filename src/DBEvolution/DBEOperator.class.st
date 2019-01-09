@@ -41,9 +41,12 @@ DBEOperator >> database: anObject [
 	database := anObject
 ]
 
-{ #category : #private }
-DBEOperator >> impactAndRecommandations [
-	"Returns an instance of DBEImpactAndRecommandations which models the impact of the operator and the recommandations allowing to try to reconciliate the database with the change provided by the operator."
+{ #category : #testing }
+DBEOperator >> isResolved [
+	"Answers true if the operators is ready to be applied.
+	 How it is computed depends on the operator.
+	 For composite operators it will be true if #isResolved is true for all children.
+	 For atomic operators it will be true if a recommandation has been chosed by the developper for each impacted entity."
 	^ self subclassResponsibility
 ]
 
@@ -57,9 +60,16 @@ DBEOperator >> model: anObject [
 	model := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-DBEOperator >> recommandationsFor: maximalImpactSet [
-	^ self impactAndRecommandations generateRecommandationsFor: maximalImpactSet
+{ #category : #accessing }
+DBEOperator >> recommandations [
+	"Returns the recommandations to apply the operator or an empty collection if not applicable."
+	^ self subclassResponsibility
+]
+
+{ #category : #private }
+DBEOperator >> recommandationsGenerator [
+	"Returns an instance of DBERecommandationsGenerator which models the impact of the operator and the recommandations allowing to try to reconciliate the database with the change provided by the operator."
+	^ self subclassResponsibility
 ]
 
 { #category : #private }

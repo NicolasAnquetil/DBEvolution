@@ -56,15 +56,15 @@ DBEAddColumn >> columnType: anObject [
 	columnType := anObject
 ]
 
-{ #category : #private }
-DBEAddColumn >> impactAndRecommandations [
-	"There is no impact here. So we define a filter that accept any entity of the model and provide no recommandation."
-	^ DBERecommandationsGenerator filters: {}
-]
-
 { #category : #accessing }
 DBEAddColumn >> queriesTemplate [
 	^ 'ALTER TABLE "{targetTableName}" ADD COLUMN "{columnName}" "{columnTypeName}";'
+]
+
+{ #category : #private }
+DBEAddColumn >> recommandationsGenerator [
+	"There is no impact here. So we define a filter that accept any entity of the model and provide no recommandation."
+	^ DBERecommandationsGenerator filters: {}
 ]
 
 { #category : #accessing }

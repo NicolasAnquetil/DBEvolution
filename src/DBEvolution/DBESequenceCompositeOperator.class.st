@@ -7,6 +7,12 @@ Class {
 	#category : #'DBEvolution-Core'
 }
 
+{ #category : #initialization }
+DBESequenceCompositeOperator >> initialize [
+	super initialize.
+	self sequenceOfOperators: #()
+]
+
 { #category : #accessing }
 DBESequenceCompositeOperator >> sequenceOfOperators [
 	^ sequenceOfOperators
