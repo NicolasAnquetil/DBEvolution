@@ -43,6 +43,13 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 			self recommandationsPresenter
 				unselect;
 				adaptToCollectionOfDBEOperators: #() ].
+			
+	self recommandationsPresenter
+		useOperatorButtonAction: [ :operatorSelected |
+			self impactedEntitiesPresenter selectedRecommandation
+				operatorChosen: operatorSelected.
+			self sequenceOperatorPresenter refresh.
+			self impactedEntitiesPresenter refresh ].
 	
 	self sequenceOperatorPresenter
 		adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator

@@ -19,3 +19,8 @@ DBEImpactedEntitiesPresenter >> initializeWidgets [
 	list
 		icons: [ :operator | operator statusIcon ]
 ]
+
+{ #category : #accessing }
+DBEImpactedEntitiesPresenter >> selectedRecommandation [
+	^ self list selectedItem
+]

@@ -44,6 +44,8 @@ DBERecommandation >> operatorChosen [
 
 { #category : #accessing }
 DBERecommandation >> operatorChosen: anObject [
+	(self operators includes: anObject)
+		ifFalse: [ self error: 'Object provided is not included in the set of operators.' ].
 	operatorChosen := anObject
 ]
 

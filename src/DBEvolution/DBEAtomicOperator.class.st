@@ -1,6 +1,9 @@
 Class {
 	#name : #DBEAtomicOperator,
 	#superclass : #DBEOperator,
+	#instVars : [
+		'recommandationsCache'
+	],
 	#category : #'DBEvolution-Core'
 }
 
@@ -21,8 +24,7 @@ DBEAtomicOperator >> isResolved [
 	 How it is computed depends on the operator.
 	 For composite operators it will be true if #isResolved is true for all children.
 	 For atomic operators it will be true if a recommandation has been chosed by the developper for each impacted entity."
-	self flag: #TODO. "To be done."
-	^ false
+	^ self recommandations allSatisfy: [ :recommandation | recommandation isOperatorChosen ]
 ]
 
 { #category : #accessing }
@@ -39,8 +41,13 @@ DBEAtomicOperator >> queriesTemplate [
 
 { #category : #accessing }
 DBEAtomicOperator >> recommandations [
-	^ self recommandationsGenerator
-		generateRecommandationsFor: self maximalImpactSet database: self database
+	^ recommandationsCache ifNil: [ 
+		recommandationsCache := self recommandationsGenerator generateRecommandationsFor: self maximalImpactSet database: self database ]
+]
+
+{ #category : #initialization }
+DBEAtomicOperator >> resetRecommandationsCache [
+	^ recommandationsCache := nil
 ]
 
 { #category : #accessing }

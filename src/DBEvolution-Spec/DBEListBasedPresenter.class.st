@@ -38,6 +38,15 @@ DBEListBasedPresenter >> list [
 ]
 
 { #category : #api }
+DBEListBasedPresenter >> refresh [
+	|selected|
+	selected := self list selectedItem.
+	self list updateList.
+	selected ifNotNil: [ 
+		self list setSelectedItem: selected ]
+]
+
+{ #category : #api }
 DBEListBasedPresenter >> unselect [
 	self list resetSelection
 ]

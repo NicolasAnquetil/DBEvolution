@@ -45,6 +45,17 @@ DBERecommandationsPresenter >> initializeWidgets [
 ]
 
 { #category : #accessing }
+DBERecommandationsPresenter >> selectedOperator [
+	^ self list selectedItem
+]
+
+{ #category : #accessing }
 DBERecommandationsPresenter >> useOperatorButton [
 	^ useOperatorButton
+]
+
+{ #category : #'as yet unclassified' }
+DBERecommandationsPresenter >> useOperatorButtonAction: aBlock [
+	self useOperatorButton
+		action: [ aBlock value: self selectedOperator ]
 ]

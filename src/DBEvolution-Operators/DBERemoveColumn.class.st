@@ -40,10 +40,16 @@ DBERemoveColumn >> queriesTemplate [
 { #category : #private }
 DBERemoveColumn >> recommandationsGenerator [
 	^ DBERecommandationsGenerator filters: { 
+		[ :entity :db | entity isPrimaryKey ] asDBEImpactFilter -> { 
+			[ :pkConstraint | DBERemovePrimaryKeyConstraint constraint: pkConstraint ] }.
 		[ :entity :db | entity isForeignKey ] asDBEImpactFilter -> { 
 			[ :fkConstraint | DBERemoveForeignKeyConstraint constraint: fkConstraint ] }.
-		[ :entity :db | entity isConstraint and: [ entity isForeignKey not ] ] asDBEImpactFilter -> { 
-			[ :constraint | DBEHumanIntervention entity: constraint ] }.
+		[ :entity :db | entity isNotNullConstraint ] asDBEImpactFilter -> { 
+			[ :notNullConstraint | DBERemoveNotNullConstraint column: notNullConstraint columns first ] }.
+		[ :entity :db | entity isUniqueConstraint ] asDBEImpactFilter -> { 
+			[ :uniqueConstraint | DBERemoveUniqueConstraint constraint: uniqueConstraint ] }.
+		[ :entity :db | entity isCheckConstraint ] asDBEImpactFilter -> { 
+			[ :checkConstraint | DBERemoveCheckConstraint constraint: checkConstraint ] }.
 		[ :entity :db | entity isClauseAbleToReferenceColumn and: [ entity isWhereClause not and: [ entity isJoinClause not ] ] ] asDBEImpactFilter -> { 
 			[ :clause | DBEHumanIntervention entity: clause ] }.
 		[ :entity :db | entity isWhereClause or: [ entity isJoinClause ] ] asDBEImpactFilter -> { 
