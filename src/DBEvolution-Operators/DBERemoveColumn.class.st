@@ -28,14 +28,14 @@ DBERemoveColumn >> canBeAppliedOnModel [
 
 { #category : #private }
 DBERemoveColumn >> impactAndRecommandations [
-	^ DBEImpactAndRecommandations impacts: { 
-		[ :entity :m :db | entity isForeignKey ] asDBEImpactFilter -> { 
+	^ DBERecommandationsGenerator impacts: { 
+		[ :entity :db | entity isForeignKey ] asDBEImpactFilter -> { 
 			[ :fkConstraint | DBERemoveForeignKeyConstraint constraint: fkConstraint ] }.
-		[ :entity :m :db | entity isConstraint and: [ entity isForeignKey not ] ] asDBEImpactFilter -> { 
+		[ :entity :db | entity isConstraint and: [ entity isForeignKey not ] ] asDBEImpactFilter -> { 
 			[ :constraint | DBEHumanIntervention entity: constraint ] }.
-		[ :entity :m :db | entity isClauseAbleToReferenceColumn and: [ entity isWhereClause not and: [ entity isJoinClause not ] ] ] asDBEImpactFilter -> { 
+		[ :entity :db | entity isClauseAbleToReferenceColumn and: [ entity isWhereClause not and: [ entity isJoinClause not ] ] ] asDBEImpactFilter -> { 
 			[ :clause | DBEHumanIntervention entity: clause ] }.
-		[ :entity :m :db | entity isWhereClause or: [ entity isJoinClause ] ] asDBEImpactFilter -> { 
+		[ :entity :db | entity isWhereClause or: [ entity isJoinClause ] ] asDBEImpactFilter -> { 
 			[ :whereOrJoinClause | DBEHumanIntervention entity: whereOrJoinClause ] }
 	}
 ]

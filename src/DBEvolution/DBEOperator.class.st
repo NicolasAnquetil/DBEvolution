@@ -57,6 +57,11 @@ DBEOperator >> model: anObject [
 	model := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+DBEOperator >> recommandationsFor: maximalImpactSet [
+	^ self impactAndRecommandations generateRecommandationsFor: maximalImpactSet
+]
+
 { #category : #private }
 DBEOperator >> uncheckedApply [
 	"Apply the operator without checking the model nor the data.

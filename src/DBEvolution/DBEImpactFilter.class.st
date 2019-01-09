@@ -1,3 +1,10 @@
+"
+I am a filter for the maximal impact set of an entity.
+
+I use my #filterBlock to select entities for which I can provide recommandations.
+
+If an entity matches my filter block, one can call my #recommandationsFor: message with then entity as argument to get recommandations for it.
+"
 Class {
 	#name : #DBEImpactFilter,
 	#superclass : #Object,
@@ -44,6 +51,11 @@ DBEImpactFilter >> initialize [
 	self recommandations: { }
 ]
 
+{ #category : #testing }
+DBEImpactFilter >> matchesEntity: anEntity inDatabase: aDBEDatabase [
+	^ self filterBlock value: anEntity value: aDBEDatabase
+]
+
 { #category : #accessing }
 DBEImpactFilter >> recommandations [
 	^ recommandations
@@ -52,4 +64,10 @@ DBEImpactFilter >> recommandations [
 { #category : #accessing }
 DBEImpactFilter >> recommandations: anObject [
 	recommandations := anObject
+]
+
+{ #category : #'as yet unclassified' }
+DBEImpactFilter >> recommandationsFor: anEntity [
+	^ self recommandations collect: [ :block |
+		block value: anEntity ]
 ]
