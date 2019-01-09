@@ -1,3 +1,8 @@
+"
+I model a recommandation of evolution for an entity.
+
+A recommandation proposes multiple operators that a human will need to choose in order to make the DB evolve.
+"
 Class {
 	#name : #DBERecommandation,
 	#superclass : #Object,
