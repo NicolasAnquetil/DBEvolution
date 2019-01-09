@@ -12,11 +12,6 @@ DBEOperator >> asStringForSpec [
 ]
 
 { #category : #'*DBEvolution-Spec' }
-DBEOperator >> bePresentedBy: aDBEOperatorPresenter [
-	self subclassResponsibility
-]
-
-{ #category : #'*DBEvolution-Spec' }
 DBEOperator >> nameForSpec [
 	"Just remove the prefix, might be overriden in subclasses."
 	^ self className allButFirst: 'DBE' size
