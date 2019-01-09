@@ -59,7 +59,7 @@ DBEAddColumn >> columnType: anObject [
 { #category : #private }
 DBEAddColumn >> impactAndRecommandations [
 	"There is no impact here. So we define a filter that accept any entity of the model and provide no recommandation."
-	^ DBERecommandationsGenerator impacts: {}
+	^ DBERecommandationsGenerator filters: {}
 ]
 
 { #category : #accessing }

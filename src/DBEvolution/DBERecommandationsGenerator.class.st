@@ -1,3 +1,8 @@
+"
+I am the object allowing to generate recommandations for an entity in a database.
+
+I hold a collection of asDBEImpactFilters. Those are used in the computation of recommandations in the method #generateRecommandationsFor:database:.
+"
 Class {
 	#name : #DBERecommandationsGenerator,
 	#superclass : #Object,
@@ -8,10 +13,20 @@ Class {
 }
 
 { #category : #'instance creation' }
-DBERecommandationsGenerator class >> impacts: aCollectionOfDBEImpactFilters [
+DBERecommandationsGenerator class >> filters: aCollectionOfDBEImpactFilters [
 	^ self new
-		impacts: aCollectionOfDBEImpactFilters;
+		filters: aCollectionOfDBEImpactFilters;
 		yourself
+]
+
+{ #category : #accessing }
+DBERecommandationsGenerator >> filters [
+	^ impacts
+]
+
+{ #category : #accessing }
+DBERecommandationsGenerator >> filters: anObject [
+	impacts := anObject
 ]
 
 { #category : #recommandations }
@@ -20,25 +35,15 @@ DBERecommandationsGenerator >> generateRecommandationsFor: maximalImpactSet data
 	^ maximalImpactSet
 		inject: OrderedCollection new
 		into: [ :col :entity |
-			self impacts
+			self filters
 				detect: [ :filter | filter matchesEntity: entity inDatabase: aDBEDatabase ]
 				ifFound: [ :foundFilter | col add: (entity -> (foundFilter recommandationsFor: entity)) ].
 			col ]
 ]
 
-{ #category : #accessing }
-DBERecommandationsGenerator >> impacts [
-	^ impacts
-]
-
-{ #category : #accessing }
-DBERecommandationsGenerator >> impacts: anObject [
-	impacts := anObject
-]
-
 { #category : #testing }
 DBERecommandationsGenerator >> isEmpty [
-	^ self impacts isEmpty
+	^ self filters isEmpty
 ]
 
 { #category : #testing }

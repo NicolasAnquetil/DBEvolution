@@ -10,7 +10,7 @@ Class {
 { #category : #running }
 DBERecommandationsGeneratorTest >> setUp [
 	super setUp.
-	impactAndRecommandations := DBERecommandationsGenerator impacts: { 
+	impactAndRecommandations := DBERecommandationsGenerator filters: { 
 		[ :entity :db | entity isForeignKey ] asDBEImpactFilter -> { 
 			[ :fkConstraint | DBERemoveForeignKeyConstraint constraint: fkConstraint ] }.
 		[ :entity :db | entity isConstraint and: [ entity isForeignKey not ] ] asDBEImpactFilter -> { 

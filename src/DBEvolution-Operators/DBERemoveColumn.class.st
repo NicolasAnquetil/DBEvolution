@@ -28,7 +28,7 @@ DBERemoveColumn >> canBeAppliedOnModel [
 
 { #category : #private }
 DBERemoveColumn >> impactAndRecommandations [
-	^ DBERecommandationsGenerator impacts: { 
+	^ DBERecommandationsGenerator filters: { 
 		[ :entity :db | entity isForeignKey ] asDBEImpactFilter -> { 
 			[ :fkConstraint | DBERemoveForeignKeyConstraint constraint: fkConstraint ] }.
 		[ :entity :db | entity isConstraint and: [ entity isForeignKey not ] ] asDBEImpactFilter -> { 
