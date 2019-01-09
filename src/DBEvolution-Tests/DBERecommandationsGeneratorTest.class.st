@@ -50,6 +50,56 @@ DBERecommandationsGeneratorTest >> testGenerateRecommandationsForDatabase [
 ]
 
 { #category : #tests }
+DBERecommandationsGeneratorTest >> testGenerateRecommandationsForDatabase2 [
+	| constraintMock greaterImpactSet recommandations |
+	constraintMock := Mock new.
+	constraintMock stub
+		isForeignKey willReturn: false.
+	constraintMock stub
+		isConstraint willReturn: true.
+	constraintMock stub
+		isClauseAbleToReferenceColumn willReturn: false.
+	constraintMock stub
+		isWhereClause willReturn: false.
+	constraintMock stub
+		isJoinClause willReturn: false.
+	
+	greaterImpactSet := { constraintMock }.
+	
+	recommandations := impactAndRecommandations generateRecommandationsFor: greaterImpactSet database: DBEDatabase new.
+	self assert: recommandations size equals: greaterImpactSet size.
+	self assert: recommandations size equals: 1.
+	self assert: recommandations first class equals: DBERecommandation.
+	self assert: recommandations first entity equals: constraintMock.
+	self assert: recommandations first operators size equals: 1.
+	self assert: recommandations first operators first class equals: DBEHumanIntervention.
+	self assert: recommandations first operators first entity equals: constraintMock
+]
+
+{ #category : #tests }
+DBERecommandationsGeneratorTest >> testGenerateRecommandationsForDatabase3 [
+	| constraintMock greaterImpactSet |
+	constraintMock := Mock new.
+	constraintMock stub
+		isForeignKey willReturn: false.
+	constraintMock stub
+		isConstraint willReturn: false.
+	constraintMock stub
+		isClauseAbleToReferenceColumn willReturn: false.
+	constraintMock stub
+		isWhereClause willReturn: false.
+	constraintMock stub
+		isJoinClause willReturn: false.
+	
+	greaterImpactSet := { constraintMock }.
+	
+	self
+		should: [ impactAndRecommandations generateRecommandationsFor: greaterImpactSet database: DBEDatabase new ]
+		raise: DBENoFilterMatchesEntityError.
+	
+]
+
+{ #category : #tests }
 DBERecommandationsGeneratorTest >> testGenerateRecommandationsForEmptyImpactSet [
 	self assert: (impactAndRecommandations generateRecommandationsFor: #() database: DBEDatabase new) isEmpty
 ]
