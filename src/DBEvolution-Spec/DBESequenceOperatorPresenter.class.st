@@ -16,7 +16,6 @@ DBESequenceOperatorPresenter >> initializeWidgets [
 	label
 		label: 'Changes:' translated.
 
-	list := self newIconList.
 	list
 		icons: [ :operator | operator statusIcon ]
 ]

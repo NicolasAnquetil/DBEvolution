@@ -16,7 +16,6 @@ DBEImpactedEntitiesPresenter >> initializeWidgets [
 	label
 		label: 'Impacted entities:' translated.
 		
-	list := self newIconList.
 	list
 		icons: [ :operator | operator statusIcon ]
 ]

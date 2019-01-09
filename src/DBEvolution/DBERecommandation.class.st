@@ -8,7 +8,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'entity',
-		'operators'
+		'operators',
+		'operatorChosen'
 	],
 	#category : #'DBEvolution-Core'
 }
@@ -29,6 +30,21 @@ DBERecommandation >> entity [
 { #category : #accessing }
 DBERecommandation >> entity: anObject [
 	entity := anObject
+]
+
+{ #category : #testing }
+DBERecommandation >> isOperatorChosen [
+	^ self operatorChosen isNotNil
+]
+
+{ #category : #accessing }
+DBERecommandation >> operatorChosen [
+	^ operatorChosen
+]
+
+{ #category : #accessing }
+DBERecommandation >> operatorChosen: anObject [
+	operatorChosen := anObject
 ]
 
 { #category : #accessing }

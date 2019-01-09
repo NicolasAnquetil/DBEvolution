@@ -27,19 +27,22 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 	self sequenceOperatorPresenter
 		whenSelectedItemChanged: [ :selectedOperator |
 			self impactedEntitiesPresenter
+				unselect;
 				adaptToCollectionOfDBERecommandations: selectedOperator recommandations ]
-		ifUnselected: [ self impactedEntitiesPresenter unselect ].
+		ifUnselected: [ 
+			self impactedEntitiesPresenter
+				unselect;
+				adaptToCollectionOfDBERecommandations: #() ].
 	
 	self impactedEntitiesPresenter 
 		whenSelectedItemChanged: [ :selectedDBERecommandation |
 			self recommandationsPresenter
+				unselect;
 				adaptToCollectionOfDBEOperators: selectedDBERecommandation operators ]
-		ifUnselected: [ self impactedEntitiesPresenter unselect ].
-	
-	self recommandationsPresenter
-		whenSelectedItemChanged: [ :selectedDBEOperator |
-			self halt: #TODO ]
-		ifUnselected: [ self flag: #TODO ].
+		ifUnselected: [
+			self recommandationsPresenter
+				unselect;
+				adaptToCollectionOfDBEOperators: #() ].
 	
 	self sequenceOperatorPresenter
 		adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator

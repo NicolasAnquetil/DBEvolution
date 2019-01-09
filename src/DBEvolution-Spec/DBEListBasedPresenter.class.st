@@ -22,6 +22,9 @@ DBEListBasedPresenter class >> defaultSpec [
 { #category : #initialization }
 DBEListBasedPresenter >> initializeWidgets [
 	label := self newLabel.
+	list := self newIconList.
+	list
+		displayBlock: [ :operator | operator asStringForSpec ]
 ]
 
 { #category : #accessing }
