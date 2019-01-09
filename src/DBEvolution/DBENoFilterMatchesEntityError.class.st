@@ -26,3 +26,13 @@ DBENoFilterMatchesEntityError >> entity [
 DBENoFilterMatchesEntityError >> entity: anObject [
 	entity := anObject
 ]
+
+{ #category : #accessing }
+DBENoFilterMatchesEntityError >> messageText [
+	^ String streamContents: [ :s |
+		s 
+			nextPutAll: 'No filter was found for '.
+		self entity printOn: s.
+		s
+			nextPutAll: ' entity.' ]
+]
