@@ -41,7 +41,12 @@ DBERecommandationsGeneratorTest >> testGenerateRecommandationsForDatabase [
 	
 	recommandations := impactAndRecommandations generateRecommandationsFor: greaterImpactSet database: DBEDatabase new.
 	self assert: recommandations size equals: greaterImpactSet size.
-	1 halt.
+	self assert: recommandations size equals: 1.
+	self assert: recommandations first class equals: DBERecommandation.
+	self assert: recommandations first entity equals: foreignKeyMock.
+	self assert: recommandations first operators size equals: 1.
+	self assert: recommandations first operators first class equals: DBERemoveForeignKeyConstraint.
+	self assert: recommandations first operators first constraint equals: foreignKeyMock
 ]
 
 { #category : #tests }
