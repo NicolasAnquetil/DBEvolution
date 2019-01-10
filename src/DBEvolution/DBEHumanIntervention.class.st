@@ -5,7 +5,8 @@ Class {
 	#name : #DBEHumanIntervention,
 	#superclass : #DBEOperator,
 	#instVars : [
-		'entity'
+		'entity',
+		'newSourceCode'
 	],
 	#category : #'DBEvolution-Core'
 }
@@ -15,6 +16,18 @@ DBEHumanIntervention class >> entity: anEntity [
 	^ self new
 		entity: anEntity;
 		yourself
+]
+
+{ #category : #testing }
+DBEHumanIntervention >> canBeAppliedOnData [
+	"Always true, we consider the DBA knows what he does here."
+	^ true
+]
+
+{ #category : #testing }
+DBEHumanIntervention >> canBeAppliedOnModel [
+	"Always true, we consider the DBA knows what he does here."
+	^ true
 ]
 
 { #category : #accessing }
@@ -33,6 +46,27 @@ DBEHumanIntervention >> isResolved [
 	 How it is computed depends on the operator.
 	 For composite operators it will be true if #isResolved is true for all children.
 	 For atomic operators it will be true if a recommandation has been chosed by the developper for each impacted entity."
-	self flag: #TODO.
-	^ false
+	^ self newSourceCode isNotNil
+]
+
+{ #category : #accessing }
+DBEHumanIntervention >> newSourceCode [
+	^ newSourceCode
+]
+
+{ #category : #accessing }
+DBEHumanIntervention >> newSourceCode: anObject [
+	newSourceCode := anObject
+]
+
+{ #category : #accessing }
+DBEHumanIntervention >> recommandations [
+	"No recommandations here, it just needs to be fixed by the DBA."
+	^ #()
+]
+
+{ #category : #private }
+DBEHumanIntervention >> recommandationsGenerator [
+	"Makes no sense here."
+	self shouldNotImplement
 ]
