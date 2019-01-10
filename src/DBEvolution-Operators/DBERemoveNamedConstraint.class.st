@@ -38,8 +38,22 @@ DBERemoveNamedConstraint >> constraint: anObject [
 ]
 
 { #category : #accessing }
+DBERemoveNamedConstraint >> maximalImpactSet [
+	self flag: #TODO.
+	^ {  }
+]
+
+{ #category : #accessing }
 DBERemoveNamedConstraint >> queriesTemplate [
 	^ 'ALTER TABLE "{tableName}" DROP CONSTRAINT "{constraintName}";'
+]
+
+{ #category : #private }
+DBERemoveNamedConstraint >> recommandationsGenerator [
+	self flag: #TODO.
+	^ DBERecommandationsGenerator filters: { 
+		[ :entity :db | true ] asDBEImpactFilter -> { 
+			[ :entity | DBEHumanIntervention entity: entity ] } }.
 ]
 
 { #category : #accessing }

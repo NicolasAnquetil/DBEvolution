@@ -38,8 +38,22 @@ DBERemoveNotNullConstraint >> column: anObject [
 ]
 
 { #category : #accessing }
+DBERemoveNotNullConstraint >> maximalImpactSet [
+	"Returns the maximal impact set of the operator."
+	^ #()
+]
+
+{ #category : #accessing }
 DBERemoveNotNullConstraint >> queriesTemplate [
 	^ 'ALTER TABLE "{tableName}" ALTER COLUMN "{columnName}" DROP NOT NULL;'
+]
+
+{ #category : #private }
+DBERemoveNotNullConstraint >> recommandationsGenerator [
+	self flag: #TODO.
+	^ DBERecommandationsGenerator filters: { 
+		[ :entity :db | true ] asDBEImpactFilter -> { 
+			[ :entity | DBEHumanIntervention entity: entity ] } }.
 ]
 
 { #category : #accessing }

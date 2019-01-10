@@ -19,6 +19,20 @@ DBEAddConstraint >> constraintName: anObject [
 ]
 
 { #category : #accessing }
+DBEAddConstraint >> maximalImpactSet [
+	self flag: #TODO.
+	^ {  }
+]
+
+{ #category : #private }
+DBEAddConstraint >> recommandationsGenerator [
+	self flag: #TODO.
+	^ DBERecommandationsGenerator filters: { 
+		[ :entity :db | true ] asDBEImpactFilter -> { 
+			[ :entity | DBEHumanIntervention entity: entity ] } }.
+]
+
+{ #category : #accessing }
 DBEAddConstraint >> targetTable [
 	^ targetTable
 ]

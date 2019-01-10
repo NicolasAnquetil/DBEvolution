@@ -29,7 +29,7 @@ DBERemoveColumn >> canBeAppliedOnModel [
 { #category : #accessing }
 DBERemoveColumn >> maximalImpactSet [
 	"Returns the maximal impact set of the operator."
-	^ (self targetColumn references collect: #container) , (self targetColumn constraints)
+	^ self targetColumn maximalImpactSet
 ]
 
 { #category : #accessing }
