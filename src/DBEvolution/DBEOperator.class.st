@@ -8,6 +8,12 @@ Class {
 	#category : #'DBEvolution-Core'
 }
 
+{ #category : #accessing }
+DBEOperator >> allOperators [
+	"Recursively visit the operators tree and return a flattened array containing all the operators."
+	^ ({ self } , (self recommandations select: #isOperatorChosen thenCollect: [ :recommandation | recommandation operatorChosen allOperators ])) flattened
+]
+
 { #category : #'public - application' }
 DBEOperator >> apply [
 	self canBeAppliedOnModel
