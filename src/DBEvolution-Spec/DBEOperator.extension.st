@@ -29,9 +29,19 @@ DBEOperator >> recommandationIcon [
 ]
 
 { #category : #'*DBEvolution-Spec' }
+DBEOperator >> resolveFromSequenceOperatorPresenter [
+	self subclassResponsibility
+]
+
+{ #category : #'*DBEvolution-Spec' }
 DBEOperator >> statusIcon [
 	"Icon displayed in the UI to show the status of the operator application."
 	^ self isResolved
 			ifTrue: [ Smalltalk ui icons iconNamed: #glamorousAccept ]
 			ifFalse: [ Smalltalk ui icons iconNamed: #configuration ]
+]
+
+{ #category : #'*DBEvolution-Spec' }
+DBEOperator >> supportsResolutionFromOperatorPresenter [
+	^ false
 ]

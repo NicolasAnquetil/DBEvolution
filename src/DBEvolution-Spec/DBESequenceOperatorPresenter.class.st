@@ -7,7 +7,23 @@ Class {
 { #category : #adapting }
 DBESequenceOperatorPresenter >> adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator [
 	self list
-		items: aDBESequenceCompositeOperator sequenceOfOperators
+		items: aDBESequenceCompositeOperator sequenceOfOperatorsForSpecPresenter
+]
+
+{ #category : #initialization }
+DBESequenceOperatorPresenter >> buildContextualMenu: builder [
+	list selectedItem ifNil: [ ^ self ].
+	list selectedItem supportsResolutionFromOperatorPresenter
+		ifFalse: [ ^ self ].
+	builder
+		add: 'Resolve' target: list selectedItem selector: #resolveFromSequenceOperatorPresenter
+]
+
+{ #category : #initialization }
+DBESequenceOperatorPresenter >> initializeContextualMenu [
+	list menu: [ :builder |
+		self buildContextualMenu: builder.
+		builder ]
 ]
 
 { #category : #initialization }
@@ -17,5 +33,7 @@ DBESequenceOperatorPresenter >> initializeWidgets [
 		label: 'Changes:' translated.
 
 	list
-		icons: [ :operator | operator statusIcon ]
+		icons: [ :operator | operator statusIcon ].
+		
+	self initializeContextualMenu.
 ]
