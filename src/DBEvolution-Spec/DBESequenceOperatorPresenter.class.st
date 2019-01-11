@@ -7,7 +7,13 @@ Class {
 { #category : #adapting }
 DBESequenceOperatorPresenter >> adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator [
 	self list
-		items: aDBESequenceCompositeOperator sequenceOfOperatorsForSpecPresenter
+		items: aDBESequenceCompositeOperator sequenceOfOperatorsForSpecPresenter.
+		
+	self list backgroundColorBlock: [ :operator :index |
+		(self list selectedItem isNotNil and: [ 
+			self list selectedItem inducedOperators includes: operator ])
+				ifTrue: [ Smalltalk ui theme backgroundColor lighter lighter ]
+				ifFalse: [ Smalltalk ui theme backgroundColor ] ].
 ]
 
 { #category : #initialization }

@@ -11,7 +11,10 @@ Class {
 { #category : #accessing }
 DBEOperator >> allOperators [
 	"Recursively visit the operators tree and return a flattened array containing all the operators."
-	^ ((self recommandations select: #isOperatorChosen thenCollect: [ :recommandation | recommandation operatorChosen allOperators ]) , { self }) flattened
+
+	^ ((self recommandations
+		select: #isOperatorChosen
+		thenCollect: [ :recommandation | recommandation operatorChosen allOperators ]) , {self}) flattened
 ]
 
 { #category : #'public - application' }
@@ -45,6 +48,13 @@ DBEOperator >> database [
 { #category : #accessing }
 DBEOperator >> database: anObject [
 	database := anObject
+]
+
+{ #category : #accessing }
+DBEOperator >> inducedOperators [
+	^ self recommandations
+		select: #isOperatorChosen
+		thenCollect: [ :recommandation | recommandation operatorChosen ]
 ]
 
 { #category : #testing }
