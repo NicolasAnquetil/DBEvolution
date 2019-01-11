@@ -11,7 +11,7 @@ Class {
 { #category : #accessing }
 DBEOperator >> allOperators [
 	"Recursively visit the operators tree and return a flattened array containing all the operators."
-	^ ({ self } , (self recommandations select: #isOperatorChosen thenCollect: [ :recommandation | recommandation operatorChosen allOperators ])) flattened
+	^ ((self recommandations select: #isOperatorChosen thenCollect: [ :recommandation | recommandation operatorChosen allOperators ]) , { self }) flattened
 ]
 
 { #category : #'public - application' }
