@@ -28,7 +28,7 @@ DBERecommandationsPresenter >> adaptToCollectionOfDBEOperators: aCollectionOfDBE
 DBERecommandationsPresenter >> initializeWidgets [
 	super initializeWidgets.
 	label
-		label: 'Recommandations:' translated.
+		label: 'Recommandations' translated.
 		
 	list
 		icons: [ :recommandation | recommandation recommandationIcon ].

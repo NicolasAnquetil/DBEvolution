@@ -30,7 +30,8 @@ DBESequenceOperatorPresenter >> initializeContextualMenu [
 DBESequenceOperatorPresenter >> initializeWidgets [
 	super initializeWidgets.
 	label
-		label: 'Changes:' translated.
+		label: 'Changes (chronological order)' translated;
+		help: 'TODO'.
 
 	list
 		icons: [ :operator | operator statusIcon ].
