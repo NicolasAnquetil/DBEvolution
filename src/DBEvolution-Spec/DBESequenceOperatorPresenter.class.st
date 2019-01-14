@@ -6,8 +6,7 @@ Class {
 
 { #category : #adapting }
 DBESequenceOperatorPresenter >> adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator [
-	self list
-		items: aDBESequenceCompositeOperator sequenceOfOperatorsForSpecPresenter.
+	self operators: aDBESequenceCompositeOperator sequenceOfOperatorsForSpecPresenter.
 		
 	self list backgroundColorBlock: [ :operator :index |
 		(self list selectedItem isNotNil and: [ 
@@ -23,6 +22,12 @@ DBESequenceOperatorPresenter >> buildContextualMenu: builder [
 		ifFalse: [ ^ self ].
 	builder
 		add: 'Resolve' target: list selectedItem selector: #resolveFromSequenceOperatorPresenter
+]
+
+{ #category : #api }
+DBESequenceOperatorPresenter >> incrementIndexSelected [
+	"Useful when an operator is added before the operator selected in the list of operators to resolve."
+	self list setSelectedIndex: ((self list selectedIndex + 1) min: self list listItems size)
 ]
 
 { #category : #initialization }
@@ -43,4 +48,13 @@ DBESequenceOperatorPresenter >> initializeWidgets [
 		icons: [ :operator | operator statusIcon ].
 		
 	self initializeContextualMenu.
+]
+
+{ #category : #accessing }
+DBESequenceOperatorPresenter >> operators: aCollectionOfOperators [
+	self list
+		items: (Array streamContents: [ :s |
+			s nextPut: DBEFakeOperator start.
+			s nextPutAll: aCollectionOfOperators.
+			s nextPut: DBEFakeOperator stop. ]).
 ]

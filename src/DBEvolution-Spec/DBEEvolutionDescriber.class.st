@@ -50,7 +50,8 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 				operatorChosen: operatorSelected.
 			self sequenceOperatorPresenter
 				adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator.
-			self impactedEntitiesPresenter refresh ].
+			self impactedEntitiesPresenter refresh.
+			self sequenceOperatorPresenter incrementIndexSelected ].
 	
 	self sequenceOperatorPresenter
 		adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator
