@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'model',
-		'database'
+		'database',
+		'developerComment'
 	],
 	#category : #'DBEvolution-Core'
 }
@@ -48,6 +49,23 @@ DBEOperator >> database [
 { #category : #accessing }
 DBEOperator >> database: anObject [
 	database := anObject
+]
+
+{ #category : #accessing }
+DBEOperator >> developerComment [
+	^ developerComment ifNil: [ ^ '' ]
+]
+
+{ #category : #accessing }
+DBEOperator >> developerComment: anObject [
+	developerComment := anObject
+]
+
+{ #category : #accessing }
+DBEOperator >> documentation [
+	"Documentation for the user of the operator.
+	 This method should return a small text explaining the purpose of the operator and how it should be used."
+	^ 'No documentation available.'
 ]
 
 { #category : #accessing }

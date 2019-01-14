@@ -11,6 +11,11 @@ DBERemovePrimaryKeyConstraint >> canBeAppliedOnModel [
 ]
 
 { #category : #accessing }
+DBERemovePrimaryKeyConstraint >> documentation [
+	^ 'Removes a PRIMARY KEY constraint from a table.'
+]
+
+{ #category : #accessing }
 DBERemovePrimaryKeyConstraint >> maximalImpactSet [
 	^ (self constraint columns collect: #foreignKeyConstraintsReferencing) flattened asSet asArray
 ]

@@ -38,6 +38,11 @@ DBERemoveNotNullConstraint >> column: anObject [
 ]
 
 { #category : #accessing }
+DBERemoveNotNullConstraint >> documentation [
+	^ 'Removes a NOT NULL constraint from a column.'
+]
+
+{ #category : #accessing }
 DBERemoveNotNullConstraint >> maximalImpactSet [
 	"Returns the maximal impact set of the operator."
 	^ #()

@@ -4,20 +4,23 @@ Class {
 	#instVars : [
 		'sequenceOperatorPresenter',
 		'impactedEntitiesPresenter',
-		'recommandationsPresenter'
+		'recommandationsPresenter',
+		'operatorDescriptionPresenter'
 	],
 	#category : #'DBEvolution-Spec'
 }
 
 { #category : #specs }
 DBEEvolutionDescriber class >> defaultSpec [
-
 	^ SpecLayout composed
-		newRow: [ :mainRow |
-			mainRow
-				newRow: #sequenceOperatorPresenter;
-				newRow: #impactedEntitiesPresenter;
-				newRow: #recommandationsPresenter ];
+		newColumn: [ :mainColumn | 
+			mainColumn
+				newRow: [ :mainRow | 
+					mainRow
+						newColumn: #sequenceOperatorPresenter;
+						newColumn: #impactedEntitiesPresenter;
+						newColumn: #recommandationsPresenter ];
+				newRow: #operatorDescriptionPresenter ];
 		yourself
 ]
 
@@ -28,7 +31,8 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 		whenSelectedItemChanged: [ :selectedOperator |
 			self impactedEntitiesPresenter
 				unselect;
-				adaptToCollectionOfDBERecommandations: selectedOperator recommandations ]
+				adaptToCollectionOfDBERecommandations: selectedOperator recommandations.
+			self operatorDescriptionPresenter adaptToDBEOperator: selectedOperator ]
 		ifUnselected: [ 
 			self impactedEntitiesPresenter
 				unselect;
@@ -70,7 +74,14 @@ DBEEvolutionDescriber >> initializeWidgets [
 	
 	impactedEntitiesPresenter := self instantiate: DBEImpactedEntitiesPresenter.
 	
-	recommandationsPresenter := self instantiate: DBERecommandationsPresenter
+	recommandationsPresenter := self instantiate: DBERecommandationsPresenter.
+	
+	operatorDescriptionPresenter := self instantiate: DBEOperatorDescriptionPresenter
+]
+
+{ #category : #accessing }
+DBEEvolutionDescriber >> operatorDescriptionPresenter [
+	^ operatorDescriptionPresenter
 ]
 
 { #category : #accessing }
