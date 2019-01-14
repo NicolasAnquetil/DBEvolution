@@ -22,6 +22,11 @@ DBERecommandation class >> entity: anEntity operators: aCollectionOfOperators [
 		yourself
 ]
 
+{ #category : #visiting }
+DBERecommandation >> acceptVisitor: aDBEVisitor [
+	^ aDBEVisitor visitDBERecommandation: self
+]
+
 { #category : #accessing }
 DBERecommandation >> entity [
 	^ entity

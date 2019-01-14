@@ -9,13 +9,16 @@ Class {
 	#category : #'DBEvolution-Core'
 }
 
+{ #category : #visiting }
+DBEOperator >> acceptVisitor: aDBEVisitor [
+	^ aDBEVisitor visitDBEOperator: self
+]
+
 { #category : #accessing }
 DBEOperator >> allOperators [
 	"Recursively visit the operators tree and return a flattened array containing all the operators."
 
-	^ ((self recommandations
-		select: #isOperatorChosen
-		thenCollect: [ :recommandation | recommandation operatorChosen allOperators ]) , {self}) flattened
+	^ self acceptVisitor: DBEExecutionOrderOfOperators new
 ]
 
 { #category : #'public - application' }
