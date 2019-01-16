@@ -5,7 +5,8 @@ Class {
 		'sequenceOperatorPresenter',
 		'impactedEntitiesPresenter',
 		'recommandationsPresenter',
-		'operatorDescriptionPresenter'
+		'operatorDescriptionPresenter',
+		'menu'
 	],
 	#category : #'DBEvolution-Spec'
 }
@@ -15,6 +16,7 @@ DBEEvolutionDescriber class >> defaultSpec [
 	^ SpecLayout composed
 		newColumn: [ :mainColumn | 
 			mainColumn
+				newRow: #menu height: self toolbarHeight;
 				newRow: [ :mainRow | 
 					mainRow
 						newColumn: #sequenceOperatorPresenter;
@@ -61,14 +63,33 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 		adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator
 ]
 
+{ #category : #api }
+DBEEvolutionDescriber >> extent [
+	^ 1200 @ 800
+]
+
 { #category : #accessing }
 DBEEvolutionDescriber >> impactedEntitiesPresenter [
 	^ impactedEntitiesPresenter
 ]
 
 { #category : #initialization }
+DBEEvolutionDescriber >> initializeMenu [
+	menu := MenuPresenter new
+		addGroup: [ :group | 
+			group
+				addItem: [ :item | 
+					item
+						name: 'File';
+						icon: (self iconNamed: #openIcon) ] ].
+	menu applyTo: self.
+]
+
+{ #category : #initialization }
 DBEEvolutionDescriber >> initializeWidgets [
 	self title: 'DB Evolution' translated.
+	
+	self initializeMenu.
 	
 	sequenceOperatorPresenter := self instantiate: DBESequenceOperatorPresenter.
 	
@@ -77,6 +98,11 @@ DBEEvolutionDescriber >> initializeWidgets [
 	recommandationsPresenter := self instantiate: DBERecommandationsPresenter.
 	
 	operatorDescriptionPresenter := self instantiate: DBEOperatorDescriptionPresenter
+]
+
+{ #category : #accessing }
+DBEEvolutionDescriber >> menu [
+	^ menu
 ]
 
 { #category : #accessing }

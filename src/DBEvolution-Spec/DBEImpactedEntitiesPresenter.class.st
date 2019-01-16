@@ -14,7 +14,7 @@ DBEImpactedEntitiesPresenter >> adaptToCollectionOfDBERecommandations: aCollecti
 DBEImpactedEntitiesPresenter >> initializeWidgets [
 	super initializeWidgets.
 	label
-		label: 'Impacted entities' translated.
+		label: 'Impact' translated.
 		
 	list
 		icons: [ :operator | operator statusIcon ]
