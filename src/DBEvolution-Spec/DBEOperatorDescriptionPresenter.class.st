@@ -20,16 +20,24 @@ DBEOperatorDescriptionPresenter class >> defaultSpec [
 	^ SpecLayout composed
 		newColumn: [ :mainColumn|
 			mainColumn
-				newRow: #documentationLabel height: self labelHeight;
-				newRow: #documentationText;
+				newRow: [ :row |
+					row
+						newColumn: #documentationLabel width: (self defaultFont widthOfString: self documentationLabelString);
+						newColumn: #documentationText ] height: self labelHeight;
 				newRow: #developerCommentLabel height: self labelHeight;
 				newRow: #developerCommentText ];
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+DBEOperatorDescriptionPresenter class >> documentationLabelString [
+	^ 'Documentation:'
+]
+
 { #category : #adapting }
 DBEOperatorDescriptionPresenter >> adaptToDBEOperator: aDBEOperator [
-	self documentationText text: aDBEOperator documentation.
+	self documentationText
+		label: aDBEOperator documentation.
 	
 	self developerCommentText
 		text: aDBEOperator developerComment.
@@ -61,10 +69,9 @@ DBEOperatorDescriptionPresenter >> documentationText [
 { #category : #initialization }
 DBEOperatorDescriptionPresenter >> initializeWidgets [
 	documentationLabel := self newLabel.
-	documentationLabel label: 'Documentation:' translated.
+	documentationLabel label: self class documentationLabelString translated.
 	
-	documentationText := self newText.
-	documentationText enabled: false.
+	documentationText := self newLabel.
 	
 	developerCommentLabel := self newLabel.
 	developerCommentLabel label: 'Comment:'.
