@@ -30,7 +30,8 @@ DBESequenceOperatorPresenter >> addOperatorPresenter: aComposablePresenter label
 	self tabsManager
 		addTab: (DBETabPresenter new
 						presenter: aComposablePresenter;
-						label: aString
+						label: aString;
+						closeable: false;
 						yourself)
 ]
 
