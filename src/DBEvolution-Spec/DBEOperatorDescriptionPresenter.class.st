@@ -84,6 +84,17 @@ DBEOperatorDescriptionPresenter >> initializeWidgets [
 			self updateDeveloperComment: text ]
 ]
 
+{ #category : #initialization }
+DBEOperatorDescriptionPresenter >> reset [
+	self documentationText
+		label: ''.
+	
+	self developerCommentText
+		text: ''.
+		
+	self whenDeveloperCommentIsUpdated: [ :text | ].
+]
+
 { #category : #adapting }
 DBEOperatorDescriptionPresenter >> updateDeveloperComment: text [
 	whenDeveloperCommentIsUpdated value: text

@@ -37,11 +37,10 @@ DBEEvolutionDescriber class >> defaultSpec [
 DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator [
 	
 	self sequenceOperatorPresenter
-		whenSelectedItemChanged: [ :selectedOperator |
+		whenSelectedItemChanged: [ :operatorSelected|
 			self impactedEntitiesPresenter
 				unselect;
-				adaptToCollectionOfDBERecommandations: selectedOperator recommandations.
-			self operatorDescriptionPresenter adaptToDBEOperator: selectedOperator ]
+				adaptToCollectionOfDBERecommandations: operatorSelected recommandations ]
 		ifUnselected: [ 
 			self impactedEntitiesPresenter
 				unselect;
@@ -56,6 +55,12 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 			self recommandationsPresenter
 				unselect;
 				adaptToCollectionOfDBEOperators: #() ].
+	
+	self recommandationsPresenter
+		whenSelectedItemChanged: [ :operatorSelected |
+			self operatorDescriptionPresenter adaptToDBEOperator: operatorSelected ]
+		ifUnselected: [ 
+			self operatorDescriptionPresenter reset ].
 			
 	self recommandationsPresenter
 		useOperatorButtonAction: [ :operatorSelected |

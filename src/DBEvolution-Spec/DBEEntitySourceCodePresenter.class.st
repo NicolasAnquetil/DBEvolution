@@ -26,7 +26,9 @@ DBEEntitySourceCodePresenter >> initializeWidgets [
 	label := self newLabel.
 	label
 		label: 'Source code:'.
-	text := self newText
+	text := self newText.
+	text
+		enabled: false
 ]
 
 { #category : #accessing }
