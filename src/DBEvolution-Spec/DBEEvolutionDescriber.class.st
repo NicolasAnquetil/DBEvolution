@@ -8,6 +8,7 @@ Class {
 		'sequenceOperatorPresenter',
 		'impactedEntitiesPresenter',
 		'recommandationsPresenter',
+		'entitySourceCodePresenter',
 		'operatorDescriptionPresenter',
 		'menu'
 	],
@@ -25,7 +26,10 @@ DBEEvolutionDescriber class >> defaultSpec [
 						newColumn: #sequenceOperatorPresenter;
 						newColumn: #impactedEntitiesPresenter;
 						newColumn: #recommandationsPresenter ];
-				newRow: #operatorDescriptionPresenter ];
+				newRow: [ :bottomRow |
+					bottomRow
+						newColumn: #entitySourceCodePresenter;
+						newColumn: #operatorDescriptionPresenter ] ];
 		yourself
 ]
 
@@ -66,6 +70,11 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 		adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator
 ]
 
+{ #category : #accessing }
+DBEEvolutionDescriber >> entitySourceCodePresenter [
+	^ entitySourceCodePresenter
+]
+
 { #category : #api }
 DBEEvolutionDescriber >> extent [
 	^ 1200 @ 800
@@ -100,7 +109,9 @@ DBEEvolutionDescriber >> initializeWidgets [
 	
 	recommandationsPresenter := self instantiate: DBERecommandationsPresenter.
 	
-	operatorDescriptionPresenter := self instantiate: DBEOperatorDescriptionPresenter
+	operatorDescriptionPresenter := self instantiate: DBEOperatorDescriptionPresenter.
+	
+	entitySourceCodePresenter := self instantiate: DBEEntitySourceCodePresenter
 ]
 
 { #category : #accessing }

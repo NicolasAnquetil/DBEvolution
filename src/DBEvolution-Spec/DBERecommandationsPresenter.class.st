@@ -24,7 +24,10 @@ DBERecommandationsPresenter class >> defaultSpec [
 { #category : #adapting }
 DBERecommandationsPresenter >> adaptToCollectionOfDBEOperators: aCollectionOfDBEOperators [
 	self list
-		items: aCollectionOfDBEOperators
+		items: aCollectionOfDBEOperators.
+		
+	aCollectionOfDBEOperators ifNotEmpty: [ 
+		self list setSelectedIndex: 1 ]
 ]
 
 { #category : #initialization }
