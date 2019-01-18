@@ -36,6 +36,11 @@ DBEEntitySourceCodePresenter >> label [
 	^ label
 ]
 
+{ #category : #resetting }
+DBEEntitySourceCodePresenter >> reset [
+	text text: ''
+]
+
 { #category : #accessing }
 DBEEntitySourceCodePresenter >> text [
 	^ text

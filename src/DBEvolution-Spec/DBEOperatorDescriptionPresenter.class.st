@@ -84,7 +84,7 @@ DBEOperatorDescriptionPresenter >> initializeWidgets [
 			self updateDeveloperComment: text ]
 ]
 
-{ #category : #initialization }
+{ #category : #resetting }
 DBEOperatorDescriptionPresenter >> reset [
 	self documentationText
 		label: ''.
