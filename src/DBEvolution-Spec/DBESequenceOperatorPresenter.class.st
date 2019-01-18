@@ -1,3 +1,10 @@
+"
+I present a DBESequenceCompositeOperator under various aspects.
+
+Concretely, each aspects is a tab of the widget. If the tab is clicked it shows view on the widget.
+
+By default, the operator is shown as a chronological list and a tree.
+"
 Class {
 	#name : #DBESequenceOperatorPresenter,
 	#superclass : #ComposablePresenter,

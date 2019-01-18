@@ -1,3 +1,6 @@
+"
+I am a fake operator that can be added to presenters for understandability purpose.
+"
 Class {
 	#name : #DBEFakeOperator,
 	#superclass : #DBEOperator,

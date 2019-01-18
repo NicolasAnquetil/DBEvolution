@@ -1,3 +1,6 @@
+"
+I show the list of recommanded operators to solve the impact induced by an operator.
+"
 Class {
 	#name : #DBERecommandationsPresenter,
 	#superclass : #DBEListBasedPresenter,

@@ -1,3 +1,10 @@
+"
+I present a DBESequenceCompositeOperator as a list.
+
+The first element is the first operator to be applied chronologically.
+
+Two fake items are added to be clear on what is the first operator to be run and what is the last.
+"
 Class {
 	#name : #DBESequenceOperatorListPresenter,
 	#superclass : #DBEListBasedPresenter,

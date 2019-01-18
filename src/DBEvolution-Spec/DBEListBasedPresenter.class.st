@@ -1,3 +1,6 @@
+"
+I am an abstract list-based presenter.
+"
 Class {
 	#name : #DBEListBasedPresenter,
 	#superclass : #ComposablePresenter,

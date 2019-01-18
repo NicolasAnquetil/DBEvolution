@@ -1,3 +1,6 @@
+"
+I show the list of entities impacted by an operator.
+"
 Class {
 	#name : #DBEImpactedEntitiesPresenter,
 	#superclass : #DBEListBasedPresenter,

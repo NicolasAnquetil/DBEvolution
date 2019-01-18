@@ -1,3 +1,8 @@
+"
+I present a DBESequenceCompositeOperator as a tree.
+
+Children of each node of the tree are the operators induced by the operator modeled by the node.
+"
 Class {
 	#name : #DBESequenceOperatorTreePresenter,
 	#superclass : #ComposablePresenter,

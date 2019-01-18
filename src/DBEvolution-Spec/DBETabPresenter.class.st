@@ -1,3 +1,6 @@
+"
+I inherit from TabPresenter just to set the background right.
+"
 Class {
 	#name : #DBETabPresenter,
 	#superclass : #TabPresenter,

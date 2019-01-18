@@ -1,3 +1,6 @@
+"
+I present additional data about the operator actually selected in the recommandation panel.
+"
 Class {
 	#name : #DBEOperatorDescriptionPresenter,
 	#superclass : #ComposablePresenter,

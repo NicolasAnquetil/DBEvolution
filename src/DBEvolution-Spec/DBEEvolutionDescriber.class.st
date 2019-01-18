@@ -1,3 +1,6 @@
+"
+I am the main widget to let a developer describe the evolution of a DB.
+"
 Class {
 	#name : #DBEEvolutionDescriber,
 	#superclass : #ComposablePresenter,
