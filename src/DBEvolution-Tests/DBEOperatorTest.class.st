@@ -11,7 +11,7 @@ Class {
 
 { #category : #testing }
 DBEOperatorTest class >> isAbtract [
-	^ self name = #DBEOperatorTest
+	^ self = DBEOperatorTest
 ]
 
 { #category : #accessing }
