@@ -34,13 +34,13 @@ DBERecommandationsGenerator >> generateRecommandationsFor: maximalImpactSet data
 	"Generates the recommandations (i.e. operators to apply) for the entities in the maximalImpactSet."
 	^ maximalImpactSet
 		inject: OrderedCollection new
-		into: [ :col :entity |
+		into: [ :col :reference |
 			self filters
-				detect: [ :filter | filter matchesEntity: entity inDatabase: aDBEDatabase ]
+				detect: [ :filter | filter matchesEntity: reference from inDatabase: aDBEDatabase ]
 				ifFound: [ :foundFilter | 
-					col add: (DBERecommandation entity: entity operators: (foundFilter recommandationsFor: entity)) ]
+					col add: (DBERecommandation entity: reference operators: (foundFilter recommandationsFor: reference from)) ]
 				ifNone: [ 
-					DBENoFilterMatchesEntityError signalEntity: entity ].
+					DBENoFilterMatchesEntityError signalEntity: reference ].
 			col ]
 ]
 

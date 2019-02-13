@@ -21,6 +21,14 @@ DBEEntitySourceCodePresenter class >> defaultSpec [
 		yourself
 ]
 
+{ #category : #adapting }
+DBEEntitySourceCodePresenter >> adaptToFmxSQLReference: aFmxSQLReference [
+	aFmxSQLReference sourceAnchor ifNotNil: [ :anchor |
+		self text
+			text: anchor entity sourceCodeAsText;
+			setSelection: (anchor start to: anchor end) ]
+]
+
 { #category : #initialization }
 DBEEntitySourceCodePresenter >> initializeWidgets [
 	label := self newLabel.

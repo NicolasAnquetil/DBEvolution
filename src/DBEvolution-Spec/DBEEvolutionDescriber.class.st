@@ -50,7 +50,9 @@ DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompos
 		whenSelectedItemChanged: [ :selectedDBERecommandation |
 			self recommandationsPresenter
 				unselect;
-				adaptToCollectionOfDBEOperators: selectedDBERecommandation operators ]
+				adaptToCollectionOfDBEOperators: selectedDBERecommandation operators.
+			self entitySourceCodePresenter
+				adaptToFmxSQLReference: selectedDBERecommandation entity ]
 		ifUnselected: [
 			self recommandationsPresenter
 				unselect;
