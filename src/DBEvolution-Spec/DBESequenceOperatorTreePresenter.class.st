@@ -5,22 +5,9 @@ Children of each node of the tree are the operators induced by the operator mode
 "
 Class {
 	#name : #DBESequenceOperatorTreePresenter,
-	#superclass : #ComposablePresenter,
-	#instVars : [
-		'tree'
-	],
+	#superclass : #DBETreeBasedPresenter,
 	#category : #'DBEvolution-Spec'
 }
-
-{ #category : #specs }
-DBESequenceOperatorTreePresenter class >> defaultSpec [
-
-	^ SpecLayout composed
-		newColumn: [ :mainColumn |
-			mainColumn
-				newRow: #tree ];
-		yourself
-]
 
 { #category : #adapting }
 DBESequenceOperatorTreePresenter >> adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator [
@@ -36,8 +23,7 @@ DBESequenceOperatorTreePresenter >> incrementIndexSelected [
 
 { #category : #initialization }
 DBESequenceOperatorTreePresenter >> initializeWidgets [
-	tree := self newTree.
-	
+	super initializeWidgets.
 	tree
 		childrenBlock: [ :operator |
 			operator recommandations
@@ -50,17 +36,4 @@ DBESequenceOperatorTreePresenter >> initializeWidgets [
 DBESequenceOperatorTreePresenter >> operators: aCollectionOfOperators [
 	self tree
 		roots: aCollectionOfOperators
-]
-
-{ #category : #accessing }
-DBESequenceOperatorTreePresenter >> tree [
-	^ tree
-]
-
-{ #category : #events }
-DBESequenceOperatorTreePresenter >> whenSelectedItemChanged: aBlock ifUnselected: unselectedBlock [
-	tree whenSelectedItemChanged: [ :item |
-		item
-			ifNil: [ unselectedBlock value ]
-			ifNotNil: [ aBlock value: item ] ]
 ]

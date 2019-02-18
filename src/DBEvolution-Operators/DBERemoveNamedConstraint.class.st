@@ -39,8 +39,7 @@ DBERemoveNamedConstraint >> constraint: anObject [
 
 { #category : #accessing }
 DBERemoveNamedConstraint >> maximalImpactSet [
-	self flag: #TODO.
-	^ {  }
+	^ self constraint maximalImpactSet
 ]
 
 { #category : #accessing }
