@@ -9,3 +9,8 @@ FmxSQLEntity >> isClauseAbleToReferenceColumn [
 FmxSQLEntity >> isColumnAlias [
 	^ false
 ]
+
+{ #category : #'*DBEvolution-Operators' }
+FmxSQLEntity >> maximalImpactSet [
+	^ self queryAllIncoming
+]
