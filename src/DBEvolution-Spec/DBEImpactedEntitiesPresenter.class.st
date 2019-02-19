@@ -14,7 +14,7 @@ Class {
 DBEImpactedEntitiesPresenter >> adaptToCollectionOfDBERecommandations: aCollectionOfDBERecommandations [
 	| associations |
 	associations := (aCollectionOfDBERecommandations groupedBy: [ :recommandation | 
-					recommandation entity sourceAnchor
+					recommandation entity sourceAnchorOrReferenceGroupSourceAnchor
 						ifNotNil: #entity
 						ifNil: [ recommandation entity ] ]) associations.
 	associations sort: [ :assoc | assoc key name ] asSortFunction.
@@ -41,9 +41,10 @@ DBEImpactedEntitiesPresenter >> initializeWidgets [
 		label: 'Impact' translated.
 	backupTreeIconBlock := tree iconBlock.
 	tree
-		iconBlock: [ :item :node | (item class isKindOf: FmxSQLReference)
-										ifTrue: [ item statusIcon ]
-										ifFalse: [ backupTreeIconBlock value: item value: node ] ]
+		iconBlock: [ :object :node | 
+			object class = Association
+				ifTrue: [ backupTreeIconBlock value: object value: node ]
+				ifFalse: [ object statusIcon ] ]
 ]
 
 { #category : #accessing }
