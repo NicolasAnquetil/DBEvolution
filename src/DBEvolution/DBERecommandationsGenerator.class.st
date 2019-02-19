@@ -36,9 +36,9 @@ DBERecommandationsGenerator >> generateRecommandationsFor: maximalImpactSet data
 		inject: OrderedCollection new
 		into: [ :col :reference |
 			self filters
-				detect: [ :filter | filter matchesEntity: reference from inDatabase: aDBEDatabase ]
+				detect: [ :filter | filter matchesEntity: reference inDatabase: aDBEDatabase ]
 				ifFound: [ :foundFilter | 
-					col add: (DBERecommandation entity: reference operators: (foundFilter recommandationsFor: reference from)) ]
+					col add: (DBERecommandation entity: reference operators: (foundFilter recommandationsFor: reference)) ]
 				ifNone: [ 
 					DBENoFilterMatchesEntityError signalEntity: reference ].
 			col ]

@@ -1,9 +1,6 @@
 Class {
 	#name : #DBERemoveColumn,
-	#superclass : #DBEAtomicOperator,
-	#instVars : [
-		'targetColumn'
-	],
+	#superclass : #DBEOperatorTargettingColumnInModel,
 	#category : #'DBEvolution-Operators-Column'
 }
 
@@ -32,12 +29,6 @@ DBERemoveColumn >> documentation [
 ]
 
 { #category : #accessing }
-DBERemoveColumn >> maximalImpactSet [
-	"Returns the maximal impact set of the operator."
-	^ self targetColumn maximalImpactSet
-]
-
-{ #category : #accessing }
 DBERemoveColumn >> queriesTemplate [
 	^ 'ALTER TABLE "{tableName}" DROP COLUMN "{columnName}";'
 ]
@@ -62,22 +53,4 @@ DBERemoveColumn >> recommandationsGenerator [
 		[ :entity :db | entity isWhereClause or: [ entity isJoinClause ] ] asDBEImpactFilter -> { 
 			[ :whereOrJoinClause | DBEHumanIntervention entity: whereOrJoinClause ] }
 	}
-]
-
-{ #category : #accessing }
-DBERemoveColumn >> targetColumn [
-	^ targetColumn
-]
-
-{ #category : #accessing }
-DBERemoveColumn >> targetColumn: anObject [
-	targetColumn := anObject
-]
-
-{ #category : #accessing }
-DBERemoveColumn >> templateArgumentsDictionary [
-	^ { 
-		#columnName -> self targetColumn name.
-		#tableName -> self targetColumn table name
-	} asDictionary
 ]
