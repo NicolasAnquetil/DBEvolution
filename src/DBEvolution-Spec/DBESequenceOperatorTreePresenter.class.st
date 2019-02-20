@@ -29,7 +29,8 @@ DBESequenceOperatorTreePresenter >> initializeWidgets [
 			operator recommandations
 				select: #isOperatorChosen
 				thenCollect: #operatorChosen ];
-		displayBlock: [ :operator | operator asStringForSpec ]
+		displayBlock: [ :operator | operator asStringForSpec ];
+		iconBlock: [ :operator | operator statusIcon ]
 ]
 
 { #category : #accessing }
