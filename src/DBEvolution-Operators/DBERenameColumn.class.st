@@ -46,6 +46,8 @@ DBERenameColumn >> queriesTemplate [
 DBERenameColumn >> recommandationsGenerator [
 	self flag: #TODO.
 	^ DBERecommandationsGenerator filters: { 
+		[ :entity :db | entity isColumnReference and: [ entity isWildCardReference ] ] asDBEImpactFilter -> { 
+			[ :ref | DBEDoNothing new ] }.
 		[ :entity :db | entity isColumnReference and: [ entity source isAnyBelongerSourced and: [ entity source sourcedBelonger class = FmxSQLView and: [ entity source class = FmxSQLSelectClause ] ] ] ] asDBEImpactFilter -> { 
 			[ :reference | DBERenameReferenceInSelectClause reference: reference newName: self newColumnName ].
 			[ :reference | DBEDoNothing new ] }.
