@@ -28,6 +28,11 @@ DBERenameReference >> canBeAppliedOnModel [
 	^ true
 ]
 
+{ #category : #testing }
+DBERenameReference >> isRenameReference [
+	^ true
+]
+
 { #category : #accessing }
 DBERenameReference >> newReferenceName [
 	^ newReferenceName

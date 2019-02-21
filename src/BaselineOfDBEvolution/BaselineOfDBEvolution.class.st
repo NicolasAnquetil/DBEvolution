@@ -17,5 +17,8 @@ BaselineOfDBEvolution >> baseline: spec [
 			spec
 				package: 'DBEvolution';
 				package: 'DBEvolution-Operators' with: [ spec requires: #('DBEvolution') ];
-				package: 'DBEvolution-Tests' with: [ spec requires: #('DBEvolution' 'DBEvolution-Operators' 'Mocketry') ] ]
+				package: 'DBEvolution-Tests' with: [ spec requires: #('DBEvolution' 'DBEvolution-Operators' 'Mocketry') ];
+				package: 'DBEvolution-Spec' with: [ spec requires: #('DBEvolution' 'DBEvolution-Operators') ];
+				package: 'DBEvolution-ConnectionsManager' with: [ spec requires: #('DBEvolution' 'DBEvolution-Spec') ];
+				package: 'DBEvolution-ScriptGeneration' with: [ spec requires: #('DBEvolution' 'DBEvolution-Operators') ] ]
 ]
