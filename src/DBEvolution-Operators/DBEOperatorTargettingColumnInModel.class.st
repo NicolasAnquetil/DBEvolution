@@ -27,6 +27,6 @@ DBEOperatorTargettingColumnInModel >> targetColumn: anObject [
 DBEOperatorTargettingColumnInModel >> templateArgumentsDictionary [
 	^ { 
 		#columnName -> self targetColumn name.
-		#tableName -> self targetColumn table name
+		#tableName -> self targetColumn columnsContainer name
 	} asDictionary
 ]

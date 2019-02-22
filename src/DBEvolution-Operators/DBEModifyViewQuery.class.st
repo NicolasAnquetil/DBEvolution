@@ -1,8 +1,9 @@
 Class {
 	#name : #DBEModifyViewQuery,
-	#superclass : #DBEAtomicOperator,
+	#superclass : #DBEViewOperator,
+	#traits : 'DBETTerminalOperator',
+	#classTraits : 'DBETTerminalOperator classTrait',
 	#instVars : [
-		'view',
 		'newQueryString'
 	],
 	#category : #'DBEvolution-Operators-View'
@@ -19,11 +20,15 @@ DBEModifyViewQuery >> newQueryString: anObject [
 ]
 
 { #category : #accessing }
-DBEModifyViewQuery >> view [
-	^ view
+DBEModifyViewQuery >> queriesTemplate [
+	"Returns a string which is a template to generate SQL queries implementing the operator."
+	^ 'CREATE OR REPLACE VIEW {viewName} AS {query};'
 ]
 
 { #category : #accessing }
-DBEModifyViewQuery >> view: anObject [
-	view := anObject
+DBEModifyViewQuery >> templateArgumentsDictionary [
+	"Returns a Dictionary containing the values to be substituted in the template."
+	^ super templateArgumentsDictionary
+		at: 'query' put: self newQueryString;
+		yourself
 ]

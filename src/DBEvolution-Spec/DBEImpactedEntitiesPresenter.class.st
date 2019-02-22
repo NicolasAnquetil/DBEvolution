@@ -43,7 +43,11 @@ DBEImpactedEntitiesPresenter >> initializeWidgets [
 	tree
 		iconBlock: [ :object :node | 
 			object class = Association
-				ifTrue: [ backupTreeIconBlock value: object value: node ]
+				ifTrue: [ 
+					"backupTreeIconBlock value: object value: node"
+					(object value allSatisfy: #isOperatorChosen)
+						ifTrue: [ (object value detect: #isOperatorChosen) statusIcon ]
+						ifFalse: [ (object value detect: [ :op | op isOperatorChosen not ]) statusIcon ] ]
 				ifFalse: [ object statusIcon ] ]
 ]
 

@@ -10,7 +10,8 @@ Class {
 		'recommandationsPresenter',
 		'entitySourceCodePresenter',
 		'operatorDescriptionPresenter',
-		'menu'
+		'menu',
+		'operator'
 	],
 	#category : #'DBEvolution-Spec'
 }
@@ -35,7 +36,7 @@ DBEEvolutionDescriber class >> defaultSpec [
 
 { #category : #adapting }
 DBEEvolutionDescriber >> adaptToDBESequenceCompositeOperator: aDBESequenceCompositeOperator [
-	
+	operator := aDBESequenceCompositeOperator.
 	self sequenceOperatorPresenter
 		whenSelectedItemChanged: [ :operatorSelected|
 			self impactedEntitiesPresenter
@@ -87,6 +88,19 @@ DBEEvolutionDescriber >> extent [
 	^ 1200 @ 800
 ]
 
+{ #category : #action }
+DBEEvolutionDescriber >> generatePatchAndInspect [
+	| operators |
+	operators := DBEPatchGenerator new
+		operators: operator sequenceOfOperators first allOperators;
+		removeDoNothingOperators;
+		aggregateReferencesRenamingOperators;
+		convertModifyViewQueryOperatorsToDeleteCreate;
+		operators.
+	
+	((operators collect: #generateQueries) joinUsing: String lf, String lf) inspect
+]
+
 { #category : #accessing }
 DBEEvolutionDescriber >> impactedEntitiesPresenter [
 	^ impactedEntitiesPresenter
@@ -99,8 +113,8 @@ DBEEvolutionDescriber >> initializeMenu [
 			group
 				addItem: [ :item | 
 					item
-						name: 'File';
-						icon: (self iconNamed: #openIcon) ] ].
+						name: 'Generate patch';
+						action: [ self generatePatchAndInspect ] ] ].
 	menu applyTo: self.
 ]
 
