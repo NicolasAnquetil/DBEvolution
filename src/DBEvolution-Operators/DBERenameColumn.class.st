@@ -18,6 +18,13 @@ DBERenameColumn >> canBeAppliedOnModel [
 ]
 
 { #category : #accessing }
+DBERenameColumn >> maximalImpactSet [
+	^ super maximalImpactSet reject: [ :columnReference |
+		(columnReference source ifNil: [ columnReference foreignKeyConstraintSource ])
+			in: [ :source | source isConstraint ] ]
+]
+
+{ #category : #accessing }
 DBERenameColumn >> newColumnName [
 	^ newColumnName
 ]
@@ -54,7 +61,7 @@ DBERenameColumn >> recommandationsGenerator [
 		[ :entity :db | entity isColumnReference and: [ entity source isAnyBelongerSourced and: [ entity source sourcedBelonger class = FmxSQLView ] ] ] asDBEImpactFilter -> { 
 			[ :reference | DBERenameReferenceInNonSelectClause reference: reference newName: self newColumnName ].
 			[ :reference | DBEDoNothing new ] }.
-		[ :entity :db | entity isColumnReference and: [ entity source isAnyBelongerSourced and: [ entity source sourcedBelonger class = FmxSQLStoredProcedure ] ] ] asDBEImpactFilter -> { 
+		[ :entity :db | entity isColumnReference and: [ entity source isAnyBelongerSourced and: [ entity source sourcedBelonger isKindOf: FmxSQLStoredProcedure ] ] ] asDBEImpactFilter -> { 
 			[ :reference | DBERenameReferenceInStoredProcedure reference: reference newName: self newColumnName ].
 			[ :reference | DBEDoNothing new ] }
 	}
