@@ -18,6 +18,25 @@ DBEAtomicOperator >> generateQueries [
 	^ self queriesTemplate format: self templateArgumentsDictionary
 ]
 
+{ #category : #'gt-inspector-extension' }
+DBEAtomicOperator >> gtInspectorItemsIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite fastTable
+		title: 'Recommandations';
+		display: [ self recommandations ];
+		beMultiple;
+		enableElementIndex;
+		wantsAutomaticRefresh: true;
+		column: 'Index' evaluated: [ :value :idex | idex asString ] width: 50;
+		column: 'Item' evaluated: [ :value | GTObjectPrinter asTruncatedTextFrom: value ];
+		send: [ :result | 
+			result isNil
+				ifTrue: [ nil ]
+				ifFalse: [ result size = 1 
+					ifTrue: [result anyOne ]  
+					ifFalse: [self species withAll: result]]]
+]
+
 { #category : #testing }
 DBEAtomicOperator >> isResolved [
 	"Answers true if the operators is ready to be applied.

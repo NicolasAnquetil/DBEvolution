@@ -71,25 +71,6 @@ DBEOperator >> documentation [
 	^ 'No documentation available.'
 ]
 
-{ #category : #'gt-inspector-extension' }
-DBEOperator >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite fastTable
-		title: 'Recommandations';
-		display: [ self recommandations ];
-		beMultiple;
-		enableElementIndex;
-		wantsAutomaticRefresh: true;
-		column: 'Index' evaluated: [ :value :idex | idex asString ] width: 50;
-		column: 'Item' evaluated: [ :value | GTObjectPrinter asTruncatedTextFrom: value ];
-		send: [ :result | 
-			result isNil
-				ifTrue: [ nil ]
-				ifFalse: [ result size = 1 
-					ifTrue: [result anyOne ]  
-					ifFalse: [self species withAll: result]]]
-]
-
 { #category : #accessing }
 DBEOperator >> inducedOperators [
 	^ self recommandations
