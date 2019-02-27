@@ -6,7 +6,17 @@ Class {
 
 { #category : #accessing }
 DBERenameReferenceInSelectClause >> maximalImpactSet [
-	^ (self selectClause query container columnsToColumnReferences keyAtValue: self reference) maximalImpactSet
+	| view column |
+	self flag: #TOFIX. "Dirty code, needs some love."
+	view := self selectClause query container ifNil: [ ^ #() ].
+	column := (view columnsToColumnReferences associations
+			detect: [ :assoc | assoc value sourceAnchor interval includesAll: self reference sourceAnchor interval ]) key.
+	(view doesNameOfColumnComesFromAlias: column)
+		ifTrue: [ ^ #() ].
+	^ column maximalImpactSet
+				reject: [ :columnReference |self flag: #TOFIX. "Duplication with DBERenameColumn>>#maximalImpactSet"
+					(columnReference source ifNil: [ columnReference foreignKeyConstraintSource ])
+						in: [ :source | source isConstraint or: [ source isAlias ] ] ]
 ]
 
 { #category : #private }

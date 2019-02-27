@@ -23,7 +23,7 @@ DBEModifyStoredProcedureSource >> newSourceCode: anObject [
 { #category : #accessing }
 DBEModifyStoredProcedureSource >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
-	^ 'CREATE OR REPLACE FUNCTION {storedProcedureName}({args}) RETURNS {returnType} AS $${sourceCode}$$ LANGUAGE plpgsql;'
+	^ 'CREATE OR REPLACE FUNCTION "{storedProcedureName}"({args}) RETURNS {returnType} AS $${sourceCode}$$ LANGUAGE plpgsql;'
 ]
 
 { #category : #accessing }

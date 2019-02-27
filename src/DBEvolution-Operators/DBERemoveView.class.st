@@ -22,5 +22,5 @@ DBERemoveView >> printArgumentsForSpecOn: aStream [
 { #category : #accessing }
 DBERemoveView >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
-	^ 'DROP VIEW {viewName} RESTRICT;'
+	^ 'DROP VIEW "{viewName}" RESTRICT;'
 ]

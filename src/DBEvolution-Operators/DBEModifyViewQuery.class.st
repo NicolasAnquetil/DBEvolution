@@ -22,7 +22,7 @@ DBEModifyViewQuery >> newQueryString: anObject [
 { #category : #accessing }
 DBEModifyViewQuery >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
-	^ 'CREATE OR REPLACE VIEW {viewName} AS {query};'
+	^ 'CREATE OR REPLACE VIEW "{viewName}" AS {query};'
 ]
 
 { #category : #accessing }

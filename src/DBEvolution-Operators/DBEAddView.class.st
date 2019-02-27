@@ -21,7 +21,7 @@ DBEAddView class >> named: aString query: queryString [
 { #category : #accessing }
 DBEAddView >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
-	^ 'CREATE VIEW {viewName} AS {query};'
+	^ 'CREATE VIEW "{viewName}" AS {query};'
 ]
 
 { #category : #accessing }
