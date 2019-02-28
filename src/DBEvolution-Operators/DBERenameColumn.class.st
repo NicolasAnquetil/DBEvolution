@@ -51,7 +51,7 @@ DBERenameColumn >> queriesTemplate [
 
 { #category : #private }
 DBERenameColumn >> recommandationsGenerator [
-	self flag: #TODO.
+	self flag: #TOFIX."Add test methods for 'predicate' using #class message..."
 	^ DBERecommandationsGenerator filters: { 
 		[ :entity :db | entity isColumnReference and: [ entity isWildCardReference ] ] asDBEImpactFilter -> { 
 			[ :ref | DBEDoNothing new ] }.
