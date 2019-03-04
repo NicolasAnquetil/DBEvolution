@@ -1,14 +1,23 @@
 Class {
 	#name : #DBEModifyStoredProcedureSource,
-	#superclass : #DBEAtomicOperator,
+	#superclass : #DBEStoredProcedureOperator,
 	#traits : 'DBETTerminalOperator',
 	#classTraits : 'DBETTerminalOperator classTrait',
 	#instVars : [
-		'storedProcedure',
 		'newSourceCode'
 	],
 	#category : #'DBEvolution-Operators-StoredProcedure'
 }
+
+{ #category : #'as yet unclassified' }
+DBEModifyStoredProcedureSource >> beAggregatedIn: aDBECreateStoredProcedure [
+	aDBECreateStoredProcedure bodySourceCode: self newSourceCode
+]
+
+{ #category : #testing }
+DBEModifyStoredProcedureSource >> concernsStoredProcedure [
+	^ true
+]
 
 { #category : #accessing }
 DBEModifyStoredProcedureSource >> newSourceCode [
@@ -24,16 +33,6 @@ DBEModifyStoredProcedureSource >> newSourceCode: anObject [
 DBEModifyStoredProcedureSource >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ 'CREATE OR REPLACE FUNCTION "{storedProcedureName}"({args}) RETURNS {returnType} AS $${sourceCode}$$ LANGUAGE plpgsql;'
-]
-
-{ #category : #accessing }
-DBEModifyStoredProcedureSource >> storedProcedure [
-	^ storedProcedure
-]
-
-{ #category : #accessing }
-DBEModifyStoredProcedureSource >> storedProcedure: anObject [
-	storedProcedure := anObject
 ]
 
 { #category : #accessing }

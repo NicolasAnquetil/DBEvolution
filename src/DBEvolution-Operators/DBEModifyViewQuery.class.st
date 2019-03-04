@@ -9,6 +9,21 @@ Class {
 	#category : #'DBEvolution-Operators-View'
 }
 
+{ #category : #converting }
+DBEModifyViewQuery >> asCreate [
+	^ DBEAddView named: self view name query: self newQueryString
+]
+
+{ #category : #converting }
+DBEModifyViewQuery >> asRemove [
+	^  DBERemoveView view: self view
+]
+
+{ #category : #testing }
+DBEModifyViewQuery >> isModify [
+	^ true
+]
+
 { #category : #accessing }
 DBEModifyViewQuery >> newQueryString [
 	^ newQueryString

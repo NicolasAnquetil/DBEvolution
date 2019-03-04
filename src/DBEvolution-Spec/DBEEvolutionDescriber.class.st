@@ -95,9 +95,9 @@ DBEEvolutionDescriber >> generatePatchAndInspect [
 		operators: operator sequenceOfOperators first allOperators;
 		removeDoNothingOperators;
 		aggregateReferencesRenamingOperators;
-		convertModifyViewQueryOperatorsToDeleteCreate;
+		convertStoredProcedureRelatedOperatorsToModify;
+		convertModifyOperatorsToDeleteCreate;
 		operators.
-	
 	((operators collect: #generateQueries) joinUsing: String lf, String lf) inspect
 ]
 

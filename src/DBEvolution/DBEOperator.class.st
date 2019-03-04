@@ -44,6 +44,11 @@ DBEOperator >> canBeAppliedOnModel [
 	^ self subclassResponsibility
 ]
 
+{ #category : #testing }
+DBEOperator >> concernsStoredProcedure [
+	^ false
+]
+
 { #category : #accessing }
 DBEOperator >> database [
 	^ database
@@ -76,6 +81,11 @@ DBEOperator >> inducedOperators [
 	^ self recommandations
 		select: #isOperatorChosen
 		thenCollect: [ :recommandation | recommandation operatorChosen ]
+]
+
+{ #category : #testing }
+DBEOperator >> isModify [
+	^ false
 ]
 
 { #category : #testing }

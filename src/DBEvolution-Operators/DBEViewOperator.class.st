@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #accessing }
+DBEViewOperator >> entity [
+	^ self view
+]
+
+{ #category : #accessing }
 DBEViewOperator >> templateArgumentsDictionary [
 	"Returns a Dictionary containing the values to be substituted in the template."
 	^ { 

@@ -8,6 +8,13 @@ Class {
 	#category : #'DBEvolution-Operators-StoredProcedure'
 }
 
+{ #category : #'as yet unclassified' }
+DBERenameStoredProcedureParameter >> beAggregatedIn: aDBECreateStoredProcedure [
+	aDBECreateStoredProcedure parameters
+		at: (aDBECreateStoredProcedure parameters indexOf: self parameter name)
+		put: self newParameterName
+]
+
 { #category : #testing }
 DBERenameStoredProcedureParameter >> canBeAppliedOnData [
 	"Can always be applied whatever the data contained by the DB."
@@ -17,6 +24,11 @@ DBERenameStoredProcedureParameter >> canBeAppliedOnData [
 { #category : #testing }
 DBERenameStoredProcedureParameter >> canBeAppliedOnModel [
 	"Can always be applied."
+	^ true
+]
+
+{ #category : #testing }
+DBERenameStoredProcedureParameter >> concernsStoredProcedure [
 	^ true
 ]
 
@@ -51,4 +63,9 @@ DBERenameStoredProcedureParameter >> recommandationsGenerator [
 		[ :entity :db | entity isParameterAccess ] asDBEImpactFilter -> { 
 			[ :aliasAccess | DBERenameReferenceInStoredProcedure reference: aliasAccess newName: self newParameterName ] }.
 	}
+]
+
+{ #category : #accessing }
+DBERenameStoredProcedureParameter >> storedProcedure [
+	^ self parameter parentBehaviouralEntity
 ]
