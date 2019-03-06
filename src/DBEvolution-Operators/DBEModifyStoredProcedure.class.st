@@ -24,7 +24,7 @@ DBEModifyStoredProcedure >> asCreate [
 
 { #category : #converting }
 DBEModifyStoredProcedure >> asRemove [
-	^ DBERemoveStoredProcedure storedProcedure: self storedProcedure
+	^ DBEBasicRemoveStoredProcedure storedProcedure: self storedProcedure
 ]
 
 { #category : #accessing }
