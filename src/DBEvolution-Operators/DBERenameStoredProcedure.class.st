@@ -34,13 +34,12 @@ DBERenameStoredProcedure >> newName: anObject [
 
 { #category : #private }
 DBERenameStoredProcedure >> recommandationsGenerator [
-	self flag: #TOFIX."Add test methods for 'predicate' using #class message..."
 	^ DBERecommandationsGenerator filters: { 
 		[ :entity :db | entity isStoredProcedureCall and: [ entity from isAnyBelongerSourced and: [ entity from sourcedBelonger isStoredProcedure ] ] ] asDBEImpactFilter -> { 
 			[ :ref | DBERenameReferenceInStoredProcedure reference: ref newName: self newName ] }.
-		[ :entity :db | entity isStoredProcedureCall and: [ entity from isAnyBelongerSourced and: [ entity from sourcedBelonger class = FmxSQLView and: [ entity from class = FmxSQLSelectClause ] ] ] ] asDBEImpactFilter -> { 
+		[ :entity :db | entity isStoredProcedureCall and: [ entity from isAnyBelongerSourced and: [ entity from sourcedBelonger isView and: [ entity from isSelectClause ] ] ] ] asDBEImpactFilter -> { 
 			[ :ref | DBERenameReferenceInSelectClause reference: ref newName: self newName ] }.
-		[ :entity :db | entity isStoredProcedureCall and: [ entity from isAnyBelongerSourced and: [ entity from sourcedBelonger class = FmxSQLView ] ] ] asDBEImpactFilter -> { 
+		[ :entity :db | entity isStoredProcedureCall and: [ entity from isAnyBelongerSourced and: [ entity from sourcedBelonger isView ] ] ] asDBEImpactFilter -> { 
 			[ :ref | DBERenameReferenceInNonSelectClause reference: ref newName: self newName ] }.
 	}
 ]
