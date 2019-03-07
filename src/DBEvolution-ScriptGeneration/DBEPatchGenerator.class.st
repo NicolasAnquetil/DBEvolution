@@ -37,17 +37,17 @@ DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 DBEPatchGenerator >> applyReferenceRenamings: referenceRenamings to: sourceCode [
 	"To be sure the order stays the same in this method."
 	| orderedReferenceRenamings lastIndex |
-	orderedReferenceRenamings := referenceRenamings asOrderedCollection sorted: [ :a :b | a reference sourceAnchor start < b reference sourceAnchor start ].
+	orderedReferenceRenamings := referenceRenamings asOrderedCollection sorted: [ :a :b | a reference start < b reference start ].
 	lastIndex := 1.
 	^ String streamContents: [ :stream |
 		orderedReferenceRenamings do: [ :referenceRename |
-			(referenceRename reference sourceAnchor start > lastIndex)
+			(referenceRename reference start > lastIndex)
 				ifTrue: [ 
-					stream << (sourceCode copyFrom: lastIndex to: referenceRename reference sourceAnchor start - 1).
-					lastIndex := referenceRename reference sourceAnchor start ].
-			referenceRename reference sourceAnchor start = lastIndex
+					stream << (sourceCode copyFrom: lastIndex to: referenceRename reference start - 1).
+					lastIndex := referenceRename reference start ].
+			referenceRename reference start = lastIndex
 				ifTrue: [ stream << referenceRename newReferenceName ].
-			lastIndex := referenceRename reference sourceAnchor end + 1 ].
+			lastIndex := referenceRename reference end + 1 ].
 		lastIndex < sourceCode size
 			ifTrue: [ stream << (sourceCode copyFrom: lastIndex to: sourceCode size) ] ]
 ]
