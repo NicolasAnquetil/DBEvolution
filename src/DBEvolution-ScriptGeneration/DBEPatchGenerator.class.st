@@ -11,8 +11,7 @@ Class {
 DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 	| aggregatedOperators |
 	aggregatedOperators := OrderedCollection new.
-	((self operators select: #isRenameReference) groupedBy: [ :ref |
-		ref reference source sourcedBelonger ]) associationsDo: [ :assoc |
+	((self operators select: #isRenameReference) groupedBy: #sourcedBelonger) associationsDo: [ :assoc |
 			|updatedSourceCode|
 			updatedSourceCode := self applyReferenceRenamings: assoc value to: assoc key source.
 			assoc key isView
@@ -37,17 +36,17 @@ DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 DBEPatchGenerator >> applyReferenceRenamings: referenceRenamings to: sourceCode [
 	"To be sure the order stays the same in this method."
 	| orderedReferenceRenamings lastIndex |
-	orderedReferenceRenamings := referenceRenamings asOrderedCollection sorted: [ :a :b | a reference start < b reference start ].
+	orderedReferenceRenamings := referenceRenamings asOrderedCollection sorted: [ :a :b | a start < b start ].
 	lastIndex := 1.
 	^ String streamContents: [ :stream |
 		orderedReferenceRenamings do: [ :referenceRename |
-			(referenceRename reference start > lastIndex)
+			(referenceRename start > lastIndex)
 				ifTrue: [ 
-					stream << (sourceCode copyFrom: lastIndex to: referenceRename reference start - 1).
-					lastIndex := referenceRename reference start ].
-			referenceRename reference start = lastIndex
+					stream << (sourceCode copyFrom: lastIndex to: referenceRename start - 1).
+					lastIndex := referenceRename start ].
+			referenceRename start = lastIndex
 				ifTrue: [ stream << referenceRename newReferenceName ].
-			lastIndex := referenceRename reference end + 1 ].
+			lastIndex := referenceRename stop + 1 ].
 		lastIndex < sourceCode size
 			ifTrue: [ stream << (sourceCode copyFrom: lastIndex to: sourceCode size) ] ]
 ]

@@ -52,3 +52,18 @@ DBERenameReference >> reference [
 DBERenameReference >> reference: anObject [
 	reference := anObject
 ]
+
+{ #category : #accessing }
+DBERenameReference >> sourcedBelonger [
+	^ self reference from sourcedBelonger
+]
+
+{ #category : #accessing }
+DBERenameReference >> start [
+	^ self reference start
+]
+
+{ #category : #accessing }
+DBERenameReference >> stop [
+	^ self reference stop
+]
