@@ -93,10 +93,7 @@ DBEEvolutionDescriber >> generatePatchAndInspect [
 	| operators |
 	operators := DBEPatchGenerator new
 		operators: operator sequenceOfOperators first allOperators;
-		removeDoNothingOperators;
-		aggregateReferencesRenamingOperators;
-		convertStoredProcedureRelatedOperatorsToModify;
-		convertModifyOperatorsToDeleteCreate;
+		run;
 		operators.
 	((operators collect: #generateQueries) joinUsing: String lf, String lf) inspect
 ]

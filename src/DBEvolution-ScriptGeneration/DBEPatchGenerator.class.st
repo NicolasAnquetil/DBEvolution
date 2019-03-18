@@ -93,6 +93,15 @@ DBEPatchGenerator >> removeDoNothingOperators [
 	^ self operators: (self operators reject: [ :op | {DBEDoNothing } includes: op class ])
 ]
 
+{ #category : #running }
+DBEPatchGenerator >> run [
+	self
+		removeDoNothingOperators;
+		aggregateReferencesRenamingOperators;
+		convertStoredProcedureRelatedOperatorsToModify;
+		convertModifyOperatorsToDeleteCreate
+]
+
 { #category : #sorting }
 DBEPatchGenerator >> sortViewsAndStoredProceduresModifications: aCollection [ 
 	| dependencies orderedOperators viewsAndStoredProceduresToConsider operatorsToConsider |
