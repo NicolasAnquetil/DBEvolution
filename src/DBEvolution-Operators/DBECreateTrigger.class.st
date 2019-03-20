@@ -5,7 +5,8 @@ Class {
 		'triggerName',
 		'when',
 		'table',
-		'storedProcedure'
+		'storedProcedure',
+		'firingAction'
 	],
 	#category : #'DBEvolution-Operators-Trigger'
 }
@@ -21,8 +22,19 @@ DBECreateTrigger >> canBeAppliedOnModel [
 ]
 
 { #category : #accessing }
+DBECreateTrigger >> firingAction [
+	^ firingAction
+]
+
+{ #category : #accessing }
+DBECreateTrigger >> firingAction: anObject [
+	firingAction := anObject
+]
+
+{ #category : #accessing }
 DBECreateTrigger >> queriesTemplate [
-	^ 'CREATE TRIGGER "{triggerName}" {when} ON "{tableName}" EXECUTE "{storedProcedureName}";'
+	self flag: #TODO. "PROCEDURE should not be hard-coded."
+	^ 'CREATE TRIGGER "{triggerName}" {when} {firingAction} ON "{tableName}" EXECUTE PROCEDURE "{storedProcedureName}"();'
 ]
 
 { #category : #accessing }
@@ -52,7 +64,8 @@ DBECreateTrigger >> templateArgumentsDictionary [
 		'triggerName' -> self triggerName.
 		'tableName' -> self table name.
 		'storedProcedureName' -> self storedProcedure name.
-		'when' -> self when
+		'when' -> self when.
+		'firingAction' -> self firingAction
 	 } asDictionary
 ]
 

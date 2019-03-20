@@ -95,7 +95,7 @@ DBEEvolutionDescriber >> generatePatchAndInspect [
 		operators: operator sequenceOfOperators first allOperators;
 		run;
 		operators.
-	((operators collect: #generateQueries) joinUsing: String lf, String lf) inspect
+	(#('BEGIN;'),(operators collect: #generateQueries),#('ROLLBACK;') joinUsing: String lf, String lf) inspect
 ]
 
 { #category : #accessing }

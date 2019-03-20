@@ -5,7 +5,8 @@ Class {
 		'name',
 		'when',
 		'table',
-		'storedProcedure'
+		'storedProcedure',
+		'firingAction'
 	],
 	#category : #'DBEvolution-Operators-Trigger'
 }
@@ -17,12 +18,23 @@ DBEModifyTrigger >> asCreate [
 		when: self when;
 		storedProcedure: self storedProcedure;
 		table: self table;
+		firingAction: self firingAction;
 		yourself
 ]
 
 { #category : #converting }
 DBEModifyTrigger >> asRemove [
 	^ DBEBasicRemoveTrigger trigger: self trigger
+]
+
+{ #category : #accessing }
+DBEModifyTrigger >> firingAction [
+	^ firingAction ifNil: [ firingAction := self trigger firingAction ]
+]
+
+{ #category : #accessing }
+DBEModifyTrigger >> firingAction: anObject [
+	firingAction := anObject
 ]
 
 { #category : #testing }
