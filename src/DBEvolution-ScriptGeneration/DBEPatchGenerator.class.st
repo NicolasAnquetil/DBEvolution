@@ -106,14 +106,14 @@ DBEPatchGenerator >> run [
 DBEPatchGenerator >> sortViewsAndStoredProceduresModifications: aCollection [ 
 	| dependencies orderedOperators viewsAndStoredProceduresToConsider operatorsToConsider |
 	viewsAndStoredProceduresToConsider := (aCollection collect: [ :operator |
-		{ operator entity . operator entity allViewsDepending , operator entity allStoredProceduresDepending } ]) flattened asSet.
+		{ operator entity . operator entity allDepending } ]) flattened asSet.
 	operatorsToConsider := viewsAndStoredProceduresToConsider collect: [ :viewOrStoredProcedure |
 		aCollection
 			detect: [ :op | op entity = viewOrStoredProcedure ]
 			ifNone: [ viewOrStoredProcedure identityModifyOperator ] ].
 	dependencies := OrderedCollection new.
 	operatorsToConsider do: [ :operator |
-		(operator entity viewsDependencies , operator entity storedProceduresDependencies) do: [ :viewOrStoredProcedureDependency |
+		(operator entity allDependencies) do: [ :viewOrStoredProcedureDependency |
 			operatorsToConsider
 				detect: [ :anyOp | anyOp entity = viewOrStoredProcedureDependency ]
 			 	ifFound: [ :op | dependencies add: operator -> op ] ] ].
