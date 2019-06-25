@@ -27,10 +27,11 @@ DBEEvolutionDescriber class >> defaultSpec [
 						newColumn: #sequenceOperatorPresenter;
 						newColumn: #impactedEntitiesPresenter;
 						newColumn: #recommandationsPresenter ];
+				addSplitter;
 				newRow: [ :bottomRow |
 					bottomRow
-						newColumn: #entitySourceCodePresenter;
-						newColumn: #operatorDescriptionPresenter ] ];
+						newColumn: #entitySourceCodePresenter";
+						newColumn: #operatorDescriptionPresenter" ] ];
 		yourself
 ]
 
