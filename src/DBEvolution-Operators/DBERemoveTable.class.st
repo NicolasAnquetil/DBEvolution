@@ -22,6 +22,19 @@ DBERemoveTable >> documentation [
 ]
 
 { #category : #accessing }
+DBERemoveTable >> maximalImpactSet [
+	self flag: 'Redefine to filter out the constraint not foreignkeys and column reference when in a group'.
+	^ self targetTable maximalImpactSet
+]
+
+{ #category : #printing }
+DBERemoveTable >> printArgumentsForSpecOn: aStream [
+	super printArgumentsForSpecOn: aStream.
+	aStream
+		nextPutAll: self targetTable name
+]
+
+{ #category : #accessing }
 DBERemoveTable >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ 'DROP TABLE "{tableName}" RESTRICT;'
