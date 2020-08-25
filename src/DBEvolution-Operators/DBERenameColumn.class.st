@@ -39,7 +39,7 @@ DBERenameColumn >> printArgumentsForSpecOn: aStream [
 	super printArgumentsForSpecOn: aStream.
 	aStream
 		nextPutAll: ' TO ';
-		nextPutAll: self targetColumn columnsContainer dbeNameForUI;
+		nextPutAll: self targetColumn columnsContainer asStringForSpec;
 		nextPut: $.;
 		nextPutAll: self newColumnName
 ]

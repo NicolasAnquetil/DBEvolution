@@ -3,5 +3,5 @@ Extension { #name : #DBEOperatorTargettingColumnInModel }
 { #category : #'*DBEvolution-Spec' }
 DBEOperatorTargettingColumnInModel >> printArgumentsForSpecOn: aStream [
 	aStream
-		nextPutAll: self targetColumn dbeNameForUI
+		nextPutAll: self targetColumn asStringForSpec
 ]

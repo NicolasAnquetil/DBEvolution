@@ -4,7 +4,7 @@ Extension { #name : #DBERecommandation }
 DBERecommandation >> asStringForSpec [
 	^ String streamContents: [ :s |
 		s
-			nextPutAll: (self entity className allButFirst: 'FmxSQL' size).
+			nextPutAll: (self entity class asStringForSpec).
 		self entity name ifNotNil: [
 			s
 				nextPut: Character space;

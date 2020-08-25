@@ -16,7 +16,7 @@ DBERemoveView class >> view: aView [
 { #category : #printing }
 DBERemoveView >> printArgumentsForSpecOn: aStream [
 	aStream
-		nextPutAll: self view dbeNameForUI
+		nextPutAll: self view asStringForSpec
 ]
 
 { #category : #accessing }

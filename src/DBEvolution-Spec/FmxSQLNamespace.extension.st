@@ -1,6 +1,6 @@
 Extension { #name : #FmxSQLNamespace }
 
 { #category : #'*DBEvolution-Spec' }
-FmxSQLNamespace >> dbeNameForUI [
+FmxSQLNamespace >> asStringForSpec [
 	^ self name
 ]

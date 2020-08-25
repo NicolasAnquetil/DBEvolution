@@ -3,7 +3,7 @@ Extension { #name : #DBEHumanIntervention }
 { #category : #'*DBEvolution-Spec' }
 DBEHumanIntervention >> printArgumentsForSpecOn: aStream [
 	aStream
-		nextPutAll: self entity dbeNameForUI
+		nextPutAll: self entity asStringForSpec
 ]
 
 { #category : #'*DBEvolution-Spec' }

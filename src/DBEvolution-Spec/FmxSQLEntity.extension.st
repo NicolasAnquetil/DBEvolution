@@ -1,6 +1,6 @@
 Extension { #name : #FmxSQLEntity }
 
 { #category : #'*DBEvolution-Spec' }
-FmxSQLEntity >> dbeNameForUI [
-	^ self asString
+FmxSQLEntity >> asStringForSpec [
+	^self asString
 ]
