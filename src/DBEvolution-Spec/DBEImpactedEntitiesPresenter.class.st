@@ -13,13 +13,7 @@ Class {
 { #category : #adapting }
 DBEImpactedEntitiesPresenter >> adaptToCollectionOfDBERecommandations: aCollectionOfDBERecommandations [
 	| associations |
-	associations := (aCollectionOfDBERecommandations groupedBy: [ :recommandation | 
-					recommandation entity sourceAnchorOrReferenceGroupSourceAnchor
-						ifNotNil: #entity
-						ifNil: [ recommandation entity ] ]) associations.
-	associations sort: [ :assoc | assoc key name ] asSortFunction.
-	associations := associations collect: [ :assoc |
-		assoc key -> (assoc value sorted: [ :reco | reco entity sourceAnchor start ] asSortFunction) ].
+	associations := self groupByEntity: aCollectionOfDBERecommandations.
 	self tree
 		roots: associations;
 		childrenBlock: [ :object |
@@ -28,8 +22,18 @@ DBEImpactedEntitiesPresenter >> adaptToCollectionOfDBERecommandations: aCollecti
 				ifFalse: [ #() ] ];
 		displayBlock: [ :object |
 			object class = Association
-				ifTrue: [ object key className ,' ', object key name ]
-				ifFalse: [ object asStringForSpec ] ]
+				ifTrue: [ object key asStringForSpec ]
+				ifFalse: [object entity asStringForSpec ] ]
+]
+
+{ #category : #adapting }
+DBEImpactedEntitiesPresenter >> groupByEntity: aCollectionOfDBERecommandations [
+	| grouped |
+	grouped := (aCollectionOfDBERecommandations groupedBy: [ :recommandation | 
+					recommandation entity sourcedBelonger ]) associations.
+	grouped sort: [ :assoc | assoc key name ] asSortFunction.
+	^grouped collect: [ :assoc |
+		assoc key -> (assoc value sorted: [ :reco | reco entity sourceAnchor start ] asSortFunction) ].
 ]
 
 { #category : #initialization }
