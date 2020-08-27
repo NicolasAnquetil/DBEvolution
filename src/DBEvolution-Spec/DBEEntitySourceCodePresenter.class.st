@@ -23,10 +23,17 @@ DBEEntitySourceCodePresenter class >> defaultSpec [
 
 { #category : #adapting }
 DBEEntitySourceCodePresenter >> adaptToFmxSQLReference: aFmxSQLReference [
-	aFmxSQLReference sourcedBelonger sourceAnchor ifNotNil: [ :anchor |
-		self text
-			text: anchor entity sourceCodeAsText;
-			setSelection: (anchor start to: anchor end) ]
+	aFmxSQLReference sourcedBelonger sourceAnchor
+		ifNotNil: [ :anchor |
+			self text
+				text: anchor entity sourceCodeAsText;
+				setSelection: (anchor start to: anchor end)
+		]
+		ifNil: [
+			self text
+				text: aFmxSQLReference sourcedBelonger source
+		].
+
 ]
 
 { #category : #initialization }
