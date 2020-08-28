@@ -33,7 +33,7 @@ DBEImpactedEntitiesPresenter >> groupByEntity: aCollectionOfDBERecommandations [
 					recommandation entity sourcedBelonger ]) associations.
 	grouped sort: [ :assoc | assoc key name ] asSortFunction.
 	^grouped collect: [ :assoc |
-		assoc key -> (assoc value sorted: [ :reco | reco entity sourceAnchor start ] asSortFunction) ].
+		assoc key -> (assoc value sorted: [ :reco | (reco entity sourceAnchor) ifNil: [ 0 ] ifNotNil: [:anchor | anchor start] ] asSortFunction) ].
 ]
 
 { #category : #initialization }
