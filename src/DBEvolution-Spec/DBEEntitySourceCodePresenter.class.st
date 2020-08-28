@@ -23,7 +23,7 @@ DBEEntitySourceCodePresenter class >> defaultSpec [
 
 { #category : #adapting }
 DBEEntitySourceCodePresenter >> adaptToFmxSQLReference: aFmxSQLReference [
-	aFmxSQLReference sourcedBelonger sourceAnchor
+	aFmxSQLReference sourceAnchor
 		ifNotNil: [ :anchor |
 			self text
 				text: anchor entity sourceCodeAsText;
@@ -31,8 +31,22 @@ DBEEntitySourceCodePresenter >> adaptToFmxSQLReference: aFmxSQLReference [
 		]
 		ifNil: [
 			self text
-				text: aFmxSQLReference sourcedBelonger source
+				text: (self generateCodeForEntity: aFmxSQLReference sourcedBelonger)
 		].
+
+]
+
+{ #category : #adapting }
+DBEEntitySourceCodePresenter >> generateCodeForEntity: aTable [
+	^String streamContents: [ :stream |
+		stream
+			<< (aTable name) ;
+			<< '('.
+		aTable columns do: [ :c | stream << c name ] separatedBy: [ stream << ', ' ]. 
+		stream
+			<< ')' ;
+			cr
+	]
 
 ]
 

@@ -13,7 +13,7 @@ Class {
 { #category : #adapting }
 DBEImpactedEntitiesPresenter >> adaptToCollectionOfDBERecommandations: aCollectionOfDBERecommandations [
 	| associations |
-	associations := self groupByEntity: aCollectionOfDBERecommandations.
+	associations := self groupByEntity: (aCollectionOfDBERecommandations reject: [:rec | rec operators allSatisfy: [:op | op class = DBEDoNothing]] ).
 	self tree
 		roots: associations;
 		childrenBlock: [ :object |
@@ -67,6 +67,7 @@ DBEImpactedEntitiesPresenter >> selectedRecommandation [
 
 { #category : #events }
 DBEImpactedEntitiesPresenter >> whenSelectedItemChanged: aBlock ifUnselected: unselectedBlock [
+	self flag: 'if selected item is an association (roots of tree) does not do anything :-('.
 	tree whenSelectedItemChanged: [ :item |
 		item class = Association
 			ifFalse: [
