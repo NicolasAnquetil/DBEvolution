@@ -7,7 +7,7 @@ Class {
 { #category : #testing }
 DBERemoveTable >> canBeAppliedOnData [
 	"Removing a column is always possible, there is no data configuration that avoid it."
-	^ true
+	^ false
 ]
 
 { #category : #testing }
@@ -21,51 +21,10 @@ DBERemoveTable >> documentation [
 	^ 'Removes a table.'
 ]
 
-{ #category : #private }
-DBERemoveTable >> isColumnReferenceConstraint: entity [
-	entity isColumnReference ifFalse: [ ^false ].
-	^entity source isConstraint
-]
-
-{ #category : #private }
-DBERemoveTable >> isColumnReferenceForeignKeyTarget: entity [
-	^entity isColumnReference and: [
-		entity foreignKeyConstraintSource isNotNil
-	]
-]
-
-{ #category : #private }
-DBERemoveTable >> isColumnReferenceNotConstraint: entity [
-	entity isColumnReference ifFalse: [ ^false ].
-	^entity source isConstraint not
-]
-
-{ #category : #private }
-DBERemoveTable >> isTableReferenceNotQualifyingAColumn: entity [
-	entity isTableReference ifFalse: [ ^ false ].
-	entity qualifiedReference ifNil: [ ^true ].
-	^entity qualifiedReference references noneSatisfy: [ :ref | ref isColumnReference ]
-
-]
-
-{ #category : #private }
-DBERemoveTable >> isTableReferenceQualifyingAColumn: entity [ 
-	entity isTableReference ifFalse: [ ^false ].
-	entity qualifiedReference ifNil: [ ^ false ].
-	^entity qualifiedReference references anySatisfy: [ :ref | ref isColumnReference ]
-]
-
 { #category : #accessing }
 DBERemoveTable >> maximalImpactSet [
 	self flag: 'Redefine to filter out the constraint not foreignkeys and column reference when in a group'.
 	^ self targetTable maximalImpactSet
-]
-
-{ #category : #printing }
-DBERemoveTable >> printArgumentsForSpecOn: aStream [
-	super printArgumentsForSpecOn: aStream.
-	aStream
-		nextPutAll: self targetTable name
 ]
 
 { #category : #accessing }

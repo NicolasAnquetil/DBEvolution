@@ -19,9 +19,11 @@ DBERenameColumn >> canBeAppliedOnModel [
 
 { #category : #accessing }
 DBERenameColumn >> maximalImpactSet [
-	^ super maximalImpactSet reject: [ :columnReference |
-		(columnReference source ifNil: [ columnReference foreignKeyConstraintSource ])
-			in: [ :source | source isConstraint or: [ source isAlias ] ] ]
+	self flag: 'should not reject constraints from maximalImpactSet. For example if colum is target of foreign key constraint'.
+	^ super maximalImpactSet
+		reject: [ :columnReference |
+			(columnReference source ifNil: [ columnReference foreignKeyConstraintSource ])
+			in: [ :source | source isConstraint or: [ source isAlias ] ] ].
 ]
 
 { #category : #accessing }
