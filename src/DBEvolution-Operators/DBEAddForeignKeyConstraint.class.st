@@ -30,7 +30,7 @@ DBEAddForeignKeyConstraint >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ 'ALTER TABLE "{sourceTableName}"
 	ADD CONSTRAINT "{constraintName}"
-	FOREIGN KEY "{sourceColumnName}"
+	FOREIGN KEY ("{sourceColumnName}")
 	REFERENCES "{tableName}" ("{targetColumnName}");'
 ]
 
