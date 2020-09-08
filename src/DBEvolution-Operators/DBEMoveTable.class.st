@@ -41,14 +41,14 @@ DBEMoveTable >> recommandationsGenerator [
 		filters:
 			{
 			([ :entity :db | entity isTableReference ] asDBEImpactFilter
-				-> {[ :tr | Halt if: [tr source isNil]. DBEHumanIntervention entity:  tr source ]})
+				-> {[ :tr | DBEHumanIntervention entity:  tr source ]})
 			.
 
 			([ :entity :db | self isColumnReferenceForeignKeyTarget: entity] asDBEImpactFilter
-				-> {[ :cr | DBERenameTableNameInForeignKeyConstaint constraint: cr foreignKeyConstraintSource ]})
+				-> {[ :cr | DBERenameTableNameInForeignKeyConstaint reference: cr newName: self targetTable qualifiedName ]})
 			.
 			([ :entity :db | entity isColumnReference ] asDBEImpactFilter
-				-> {[ :tr | Halt if: [tr source isNil]. DBEHumanIntervention entity:  tr source ]})
+				-> {[ :tr | DBEHumanIntervention entity:  tr source ]})
 
 			}
 ]

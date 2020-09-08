@@ -1,9 +1,6 @@
 Class {
 	#name : #DBERenameTableNameInForeignKeyConstaint,
-	#superclass : #Object,
-	#instVars : [
-		'constraint'
-	],
+	#superclass : #DBERenameReference,
 	#category : #'DBEvolution-Operators-References'
 }
 
@@ -28,8 +25,14 @@ DBERenameTableNameInForeignKeyConstaint >> asRemove [
 ]
 
 { #category : #accessing }
-DBERenameTableNameInForeignKeyConstaint >> constraint: aConstraint [
-	constraint := aConstraint 
+DBERenameTableNameInForeignKeyConstaint >> constraint [
+"
+ALTER TABLE <constraint table>
+ADD CONSTRAINT <constraint name> 
+FOREIGN KEY (<constraint outgoingColumnReferences first column name>) 
+REFERENCES <ref column columnsContainer name> (ref column name);
+"
+	^self reference foreignKeyConstraintSource 
 ]
 
 { #category : #testing }
@@ -37,12 +40,21 @@ DBERenameTableNameInForeignKeyConstaint >> isModify [
 	^ true
 ]
 
-{ #category : #testing }
-DBERenameTableNameInForeignKeyConstaint >> sourceColumn [
-	^constraint outgoingColumnReferences first column
+{ #category : #accessing }
+DBERenameTableNameInForeignKeyConstaint >> maximalImpactSet [
+	"Returns the maximal impact set of the operator."
+	^ self constraint maximalImpactSet
 ]
 
-{ #category : #testing }
-DBERenameTableNameInForeignKeyConstaint >> targetColumn [
-	^constraint outgoingForeignKeyColumnReferences first column
+{ #category : #printing }
+DBERenameTableNameInForeignKeyConstaint >> printArgumentsForSpecOn: aStream [
+]
+
+{ #category : #private }
+DBERenameTableNameInForeignKeyConstaint >> recommandationsGenerator [
+	
+	^ DBERecommandationsGenerator filters: { 
+		[ :entity :db | true ] asDBEImpactFilter -> { 
+			[ :tr | DBEHumanIntervention entity: tr source ] }
+	}
 ]
