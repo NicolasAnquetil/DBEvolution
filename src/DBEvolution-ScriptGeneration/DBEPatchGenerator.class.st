@@ -12,21 +12,8 @@ DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 	| aggregatedOperators |
 	aggregatedOperators := OrderedCollection new.
 	((self operators select: #isRenameReference) groupedBy: #sourcedBelonger) associationsDo: [ :assoc |
-			|updatedSourceCode|
-			updatedSourceCode := self applyReferenceRenamings: assoc value to: assoc key source.
-			assoc key isView
-				ifTrue: [ 
-					aggregatedOperators 
-						add: (DBEModifyViewQuery new
-								view: assoc key;
-								newQueryString: updatedSourceCode;
-								yourself) -> assoc value ]
-				ifFalse: [ 
-					aggregatedOperators 
-						add: (DBEModifyStoredProcedureSource new
-								storedProcedure: assoc key;
-								newSourceCode: updatedSourceCode;
-								yourself) -> assoc value ] ].
+		aggregatedOperators 
+			add: (assoc key terminalOperatorToModifyReferenceFromNonTerminalOperator: assoc value) -> assoc value ].
 	aggregatedOperators do: [ :assoc |
 		self operators at: (self operators detectIndex: [ :op | assoc value includes: op ]) put: assoc key.
 		self operators: (self operators reject: [ :op | assoc value includes: op ]) ]
