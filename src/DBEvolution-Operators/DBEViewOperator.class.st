@@ -13,6 +13,11 @@ DBEViewOperator >> entity [
 ]
 
 { #category : #accessing }
+DBEViewOperator >> maximalImpactSet [
+	^ self view maximalImpactSet
+]
+
+{ #category : #accessing }
 DBEViewOperator >> templateArgumentsDictionary [
 	"Returns a Dictionary containing the values to be substituted in the template."
 	^ { 
@@ -27,5 +32,6 @@ DBEViewOperator >> view [
 
 { #category : #accessing }
 DBEViewOperator >> view: anObject [
+	self flag: 'should be #targetView:'.
 	view := anObject
 ]
