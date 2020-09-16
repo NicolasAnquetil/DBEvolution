@@ -1,9 +1,10 @@
-Extension { #name : #DBEMoveTable }
+Extension { #name : #DBEMoveView }
 
 { #category : #'*DBEvolution-Spec' }
-DBEMoveTable >> printArgumentsForSpecOn: aStream [
+DBEMoveView >> printArgumentsForSpecOn: aStream [
 	super printArgumentsForSpecOn: aStream.
 	aStream
+		nextPutAll: self view name ;
 		nextPutAll: '->' ;
 		nextPutAll: self targetSchema name
 ]
