@@ -47,5 +47,5 @@ DBERenameReferenceInSelectClause >> recommandationsGenerator [
 
 { #category : #accessing }
 DBERenameReferenceInSelectClause >> selectClause [
-	^ self reference source
+	^ self reference from
 ]

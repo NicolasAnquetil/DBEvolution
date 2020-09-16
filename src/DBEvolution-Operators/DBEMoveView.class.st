@@ -33,7 +33,7 @@ DBEMoveView >> maximalImpactSet [
 DBEMoveView >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ 'ALTER VIEW "{viewName}"
-    SET SCHEMA "{schemaName}"'
+    SET SCHEMA "{schemaName}";'
 ]
 
 { #category : #private }

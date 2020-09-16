@@ -35,7 +35,7 @@ DBEMoveTable >> maximalImpactSet [
 DBEMoveTable >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ 'ALTER TABLE "{tableName}"
-    SET SCHEMA "{schemaName}"'
+    SET SCHEMA "{schemaName}";'
 ]
 
 { #category : #private }

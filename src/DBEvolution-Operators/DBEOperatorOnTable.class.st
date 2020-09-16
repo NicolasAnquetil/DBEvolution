@@ -47,13 +47,6 @@ DBEOperatorOnTable >> maximalImpactSet [
 	^ self targetTable maximalImpactSet
 ]
 
-{ #category : #printing }
-DBEOperatorOnTable >> printArgumentsForSpecOn: aStream [
-	super printArgumentsForSpecOn: aStream.
-	aStream
-		nextPutAll: self targetTable name
-]
-
 { #category : #accessing }
 DBEOperatorOnTable >> targetTable [
 	^ targetTable
