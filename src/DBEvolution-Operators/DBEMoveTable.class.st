@@ -19,12 +19,16 @@ DBEMoveTable >> canBeAppliedOnModel [
 	^ true
 ]
 
-{ #category : #printing }
-DBEMoveTable >> printArgumentsForSpecOn: aStream [
-	super printArgumentsForSpecOn: aStream.
-	aStream
-		nextPutAll: ' to ' ;
-		nextPutAll: self targetSchema name
+{ #category : #accessing }
+DBEMoveTable >> maximalImpactSet [
+	self flag: 'Could also be a foreignkey constaint ?'.
+	^ super maximalImpactSet
+		reject: [ :impact |
+			impact isColumnReference "and:
+			[ impact sourcedBelonger == targetTable ]"
+		or: 
+		[ impact isTableReference and: [impact sourcedBelonger isView] ]
+		]
 ]
 
 { #category : #accessing }
@@ -41,15 +45,9 @@ DBEMoveTable >> recommandationsGenerator [
 		filters:
 			{
 			([ :entity :db | entity isTableReference ] asDBEImpactFilter
-				-> {[ :tr | DBEHumanIntervention entity:  tr source ]})
-			.
-
-			([ :entity :db | self isColumnReferenceForeignKeyTarget: entity] asDBEImpactFilter
-				-> {[ :cr | DBERenameTableNameInForeignKeyConstaint reference: cr newName: self targetTable qualifiedName ]})
-			.
-			([ :entity :db | entity isColumnReference ] asDBEImpactFilter
-				-> {[ :tr | DBEHumanIntervention entity:  tr source ]})
-
+				-> {[ :tr | DBERenameReferenceInStoredProcedure
+						reference: tr
+						newName: self targetTableName ]})
 			}
 ]
 
@@ -61,6 +59,11 @@ DBEMoveTable >> targetSchema [
 { #category : #accessing }
 DBEMoveTable >> targetSchema: schema [
 	targetSchema := schema
+]
+
+{ #category : #accessing }
+DBEMoveTable >> targetTableName [
+	^self targetSchema name , '.' , self targetTable name 
 ]
 
 { #category : #accessing }
