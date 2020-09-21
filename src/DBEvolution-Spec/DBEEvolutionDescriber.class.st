@@ -93,7 +93,7 @@ DBEEvolutionDescriber >> extent [
 DBEEvolutionDescriber >> generatePatchAndInspect [
 	| operators |
 	operators := DBEPatchGenerator new
-		operators: operator sequenceOfOperators first allOperators;
+		operators: (operator sequenceOfOperators flatCollect: #allOperators);
 		run;
 		operators.
 	(#('BEGIN;'),(operators collect: #generateQueries),#('ROLLBACK;') joinUsing: String lf, String lf) inspect
