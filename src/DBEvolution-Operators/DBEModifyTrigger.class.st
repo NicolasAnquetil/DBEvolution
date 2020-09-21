@@ -37,11 +37,6 @@ DBEModifyTrigger >> firingAction: anObject [
 	firingAction := anObject
 ]
 
-{ #category : #testing }
-DBEModifyTrigger >> isModify [
-	^ true
-]
-
 { #category : #accessing }
 DBEModifyTrigger >> name [
 	^ name ifNil: [ name := self trigger name ]
@@ -50,6 +45,11 @@ DBEModifyTrigger >> name [
 { #category : #accessing }
 DBEModifyTrigger >> name: anObject [
 	name := anObject
+]
+
+{ #category : #testing }
+DBEModifyTrigger >> needRemoveRecreate [
+	^ true
 ]
 
 { #category : #accessing }

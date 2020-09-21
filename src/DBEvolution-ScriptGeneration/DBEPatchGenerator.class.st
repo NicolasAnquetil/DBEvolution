@@ -22,11 +22,11 @@ DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 { #category : #transformation }
 DBEPatchGenerator >> convertModifyOperatorsToDeleteCreate [
 	| modifyOperators |
-	modifyOperators := self operators select: #isModify.
+	modifyOperators := self operators select: #needRemoveRecreate.
 	modifyOperators := self sortViewsAndStoredProceduresModifications: modifyOperators.
 	self operators:
 		(modifyOperators reversed collect: #asRemove) ,
-		(self operators reject: #isModify) ,
+		(self operators reject: #needRemoveRecreate) ,
 		(modifyOperators collect: #asCreate)
 ]
 

@@ -20,7 +20,7 @@ DBEModifyViewQuery >> asRemove [
 ]
 
 { #category : #testing }
-DBEModifyViewQuery >> isModify [
+DBEModifyViewQuery >> needRemoveRecreate [
 	^ true
 ]
 

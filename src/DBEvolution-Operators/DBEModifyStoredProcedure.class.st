@@ -38,7 +38,7 @@ DBEModifyStoredProcedure >> bodySourceCode: anObject [
 ]
 
 { #category : #testing }
-DBEModifyStoredProcedure >> isModify [
+DBEModifyStoredProcedure >> needRemoveRecreate [
 	^ true
 ]
 

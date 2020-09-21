@@ -32,6 +32,16 @@ DBEOperator >> apply [
 	self uncheckedApply
 ]
 
+{ #category : #converting }
+DBEOperator >> asCreate [
+	^nil
+]
+
+{ #category : #converting }
+DBEOperator >> asRemove [
+	^nil
+]
+
 { #category : #testing }
 DBEOperator >> canBeAppliedOnData [
 	"Concrete subclasses should override this method in order that it returns true if the operator can be applied on the data stored in the database."
@@ -84,11 +94,6 @@ DBEOperator >> inducedOperators [
 ]
 
 { #category : #testing }
-DBEOperator >> isModify [
-	^ false
-]
-
-{ #category : #testing }
 DBEOperator >> isRenameReference [
 	^ false
 ]
@@ -110,6 +115,11 @@ DBEOperator >> model [
 { #category : #accessing }
 DBEOperator >> model: anObject [
 	model := anObject
+]
+
+{ #category : #testing }
+DBEOperator >> needRemoveRecreate [
+	^ false
 ]
 
 { #category : #accessing }
