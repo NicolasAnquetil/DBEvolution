@@ -20,6 +20,11 @@ DBEStoredProcedureOperator >> entity [
 ]
 
 { #category : #accessing }
+DBEStoredProcedureOperator >> maximalImpactSet [
+	^ self storedProcedure maximalImpactSet
+]
+
+{ #category : #accessing }
 DBEStoredProcedureOperator >> storedProcedure [
 	^ storedProcedure
 ]
@@ -27,4 +32,12 @@ DBEStoredProcedureOperator >> storedProcedure [
 { #category : #accessing }
 DBEStoredProcedureOperator >> storedProcedure: anObject [
 	storedProcedure := anObject
+]
+
+{ #category : #accessing }
+DBEStoredProcedureOperator >> templateArgumentsDictionary [
+	"Returns a Dictionary containing the values to be substituted in the template."
+	^ { 
+		'storedProcedureName' -> self storedProcedure name
+	 } asDictionary
 ]

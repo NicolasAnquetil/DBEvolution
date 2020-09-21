@@ -67,3 +67,8 @@ DBERenameReference >> start [
 DBERenameReference >> stop [
 	^ self reference stop
 ]
+
+{ #category : #accessing }
+DBERenameReference >> stopIndexInReplacement [
+	^self reference stopIndexInReplacement
+]

@@ -19,25 +19,6 @@ DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 		self operators: (self operators reject: [ :op | assoc value includes: op ]) ]
 ]
 
-{ #category : #private }
-DBEPatchGenerator >> applyReferenceRenamings: referenceRenamings to: sourceCode [
-	"To be sure the order stays the same in this method."
-	| orderedReferenceRenamings lastIndex |
-	orderedReferenceRenamings := referenceRenamings asOrderedCollection sorted: [ :a :b | a start < b start ].
-	lastIndex := 1.
-	^ String streamContents: [ :stream |
-		orderedReferenceRenamings do: [ :referenceRename |
-			(referenceRename start > lastIndex)
-				ifTrue: [ 
-					stream << (sourceCode copyFrom: lastIndex to: referenceRename start - 1).
-					lastIndex := referenceRename start ].
-			referenceRename start = lastIndex
-				ifTrue: [ stream << referenceRename newReferenceName ].
-			lastIndex := referenceRename stop + 1 ].
-		lastIndex < sourceCode size
-			ifTrue: [ stream << (sourceCode copyFrom: lastIndex to: sourceCode size) ] ]
-]
-
 { #category : #transformation }
 DBEPatchGenerator >> convertModifyOperatorsToDeleteCreate [
 	| modifyOperators |
