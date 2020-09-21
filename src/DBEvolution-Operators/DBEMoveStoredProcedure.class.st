@@ -70,12 +70,11 @@ DBEMoveStoredProcedure >> targetSchema: schema [
 
 { #category : #accessing }
 DBEMoveStoredProcedure >> targetStoredProcedureCall [
-	self flag: 'maybe parameters should be dealt with in a separate operator???'.
+
 	^self
 		targetSchema name ,
 		'.' ,
-		self storedProcedure name ,
-		(self formatArgument: storedProcedure arguments)
+		self storedProcedure name
 ]
 
 { #category : #accessing }
