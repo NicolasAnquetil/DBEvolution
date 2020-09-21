@@ -20,7 +20,7 @@ DBEAtomicOperator >> generateQueries [
 
 { #category : #'gt-inspector-extension' }
 DBEAtomicOperator >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: 0>
+	"causes a bug in GT:  <gtInspectorPresentationOrder: 0>"
 	^ composite fastTable
 		title: 'Recommandations';
 		display: [ self recommandations ];
