@@ -4,6 +4,7 @@ Extension { #name : #DBEMoveStoredProcedure }
 DBEMoveStoredProcedure >> printArgumentsForSpecOn: aStream [
 	super printArgumentsForSpecOn: aStream.
 	aStream
+		nextPutAll: (self storedProcedure name) ;
 		nextPutAll: '->' ;
 		nextPutAll: self targetSchema name
 ]

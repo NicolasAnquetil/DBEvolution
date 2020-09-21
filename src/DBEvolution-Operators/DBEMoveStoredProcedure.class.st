@@ -20,16 +20,6 @@ DBEMoveStoredProcedure >> canBeAppliedOnModel [
 ]
 
 { #category : #accessing }
-DBEMoveStoredProcedure >> formatArgument: arguments [
-	| str |
-	str := String streamContents: [ :st |
-	].
-	^'(' ,
-	str ,
-	')'
-]
-
-{ #category : #accessing }
 DBEMoveStoredProcedure >> queriesTemplate [
 	"Returns a string which is a template to generate SQL queries implementing the operator."
 	^ 'ALTER FUNCTION "{storedProcedureName}"
