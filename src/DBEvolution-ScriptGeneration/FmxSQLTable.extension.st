@@ -1,8 +1,8 @@
 Extension { #name : #FmxSQLTable }
 
 { #category : #'*DBEvolution-ScriptGeneration' }
-FmxSQLTable >> terminalOperatorToModifyReferenceFromNonTerminalOperator: nonTerminalOperator [
+FmxSQLTable >> referenceOperatorToEntityOperator: nonTerminalOperatorCollection [
 	^DBEModifyForeignKeyConstraint new
-		reference: nonTerminalOperator reference;
+		reference: nonTerminalOperatorCollection reference;
 		yourself
 ]

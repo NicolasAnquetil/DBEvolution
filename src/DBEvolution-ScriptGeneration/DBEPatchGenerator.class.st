@@ -13,7 +13,7 @@ DBEPatchGenerator >> aggregateReferencesRenamingOperators [
 	aggregatedOperators := OrderedCollection new.
 	((self operators select: #isRenameReference) groupedBy: #sourcedBelonger) associationsDo: [ :assoc |
 		aggregatedOperators 
-			add: (assoc key terminalOperatorToModifyReferenceFromNonTerminalOperator: assoc value) -> assoc value ].
+			add: (assoc key referenceOperatorToEntityOperator: assoc value) -> assoc value ].
 	aggregatedOperators do: [ :assoc |
 		self operators at: (self operators detectIndex: [ :op | assoc value includes: op ]) put: assoc key.
 		self operators: (self operators reject: [ :op | assoc value includes: op ]) ]
@@ -35,7 +35,7 @@ DBEPatchGenerator >> convertStoredProcedureRelatedOperatorsToModify [
 	| storedProceduresRelatedOperators aggregatedOperators |
 	storedProceduresRelatedOperators := self operators select: #concernsStoredProcedure.
 	aggregatedOperators := OrderedCollection new.
-	(storedProceduresRelatedOperators groupedBy: #storedProcedure)
+	(storedProceduresRelatedOperators groupedBy: #storedProcedure)  "create synonym: #sourcedBelonger"
 		keysAndValuesDo: [ :storedProcedure :operatorsToAggregate |
 			|aggregatedOperator|
 			aggregatedOperator := DBEModifyStoredProcedure storedProcedure: storedProcedure.
@@ -83,7 +83,8 @@ DBEPatchGenerator >> sortViewsAndStoredProceduresModifications: aCollection [
 		aCollection
 			detect: [ :op | op entity = viewOrStoredProcedure ]
 			ifNone: [ viewOrStoredProcedure identityModifyOperator ] ].
-	"lists in 'dependencies' dependences between operators: for each operator, search in its dependencies if there is an entity used in another operator"
+	"computes dependences between operators:
+		for each operator, search in its dependencies if there is an entity used in another operator"
 	dependencies := OrderedCollection new.
 	operatorsToConsider do: [ :operator |
 		(operator entity allDependencies) do: [ :viewOrStoredProcedureDependency |

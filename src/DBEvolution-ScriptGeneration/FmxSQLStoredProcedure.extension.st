@@ -10,9 +10,9 @@ FmxSQLStoredProcedure >> identityModifyOperator [
 ]
 
 { #category : #'*DBEvolution-ScriptGeneration' }
-FmxSQLStoredProcedure >> terminalOperatorToModifyReferenceFromNonTerminalOperator: nonTerminalOperator [
+FmxSQLStoredProcedure >> referenceOperatorToEntityOperator: nonTerminalOperatorCollection [
 	^DBEModifyStoredProcedureSource new
 		storedProcedure: self ;
-		newSourceCode: (self applyReferenceRenamings: nonTerminalOperator) ;
+		newSourceCode: (self applyReferenceRenamings: nonTerminalOperatorCollection) ;
 		yourself
 ]

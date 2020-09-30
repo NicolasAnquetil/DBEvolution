@@ -10,9 +10,9 @@ FmxSQLView >> identityModifyOperator [
 ]
 
 { #category : #'*DBEvolution-ScriptGeneration' }
-FmxSQLView >> terminalOperatorToModifyReferenceFromNonTerminalOperator: nonTerminalOperator [
+FmxSQLView >> referenceOperatorToEntityOperator: nonTerminalOperatorCollection [
 	^DBEModifyViewQuery new
 		view: self ;
-		newQueryString: (self applyReferenceRenamings: nonTerminalOperator) ;
+		newQueryString: (self applyReferenceRenamings: nonTerminalOperatorCollection) ;
 		yourself
 ]
