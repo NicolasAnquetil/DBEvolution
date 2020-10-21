@@ -51,6 +51,7 @@ DBERewriteSourceAnchor >> sourceAnchor: anObject [
 
 { #category : #accessing }
 DBERewriteSourceAnchor >> sourcedBelonger [
+	self flag: '#sourcedBelonger are mostly implemented by entities (ex: FmxSQLCRUDQuery) except operators that #isRenameReference. why?'.
 	^ self sourceAnchor entity
 ]
 

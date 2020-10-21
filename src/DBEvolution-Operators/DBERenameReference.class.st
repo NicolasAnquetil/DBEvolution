@@ -55,6 +55,7 @@ DBERenameReference >> reference: anObject [
 
 { #category : #accessing }
 DBERenameReference >> sourcedBelonger [
+	self flag: '#sourcedBelonger are mostly implemented by entities (ex: FmxSQLCRUDQuery) except operators that #isRenameReference. why?'.
 	^ self reference from sourcedBelonger
 ]
 
